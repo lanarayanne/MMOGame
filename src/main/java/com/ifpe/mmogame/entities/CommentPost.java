@@ -8,7 +8,7 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Comment {
+public class CommentPost {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
@@ -20,7 +20,7 @@ public class Comment {
     @Lob
     private String text;
 
-    public Comment(){
+    public CommentPost(){
         this.date = System.currentTimeMillis();
     }
 

@@ -12,7 +12,7 @@ public class Character {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
-    @ManyToOne
+    // @ManyToOne
     private String game;
     private String name;
     @Column(unique = true)
