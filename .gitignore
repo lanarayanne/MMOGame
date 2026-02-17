@@ -34,3 +34,6 @@ build/
 
 ###Database Config###
 **/JpaUtil.java
+
+###Security Config###
+**/JwtUtils.java
