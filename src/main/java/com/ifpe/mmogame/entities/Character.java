@@ -12,8 +12,8 @@ public class Character {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
-    // @ManyToOne
-    private String game;
+    @ManyToOne
+    private Game game;
     private String name;
     @Column(unique = true)
     private String uniqueName;
@@ -26,10 +26,10 @@ public class Character {
     public void setId(int id) {
         this.id = id;
     }
-    public String getGame() {
+    public Game getGame() {
         return game;
     }
-    public void setGame(String game) {
+    public void setGame(Game game) {
         this.game = game;
     }
     public String getName() {

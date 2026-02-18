@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import com.ifpe.mmogame.entities.Photo;
 
 public interface PhotoRepository extends JpaRepository<Photo, Integer> {
-    @Query("SELECT p FROM Photo p WHERE p.user.id =: userId")
-    public Optional<Photo> findByIdUser(@Param("userId") String userId);
+    @Query("SELECT p FROM Photo p WHERE p.user.email =: email")
+    public Optional<Photo> findByEmailUser(@Param("email") String email);
 
 }
