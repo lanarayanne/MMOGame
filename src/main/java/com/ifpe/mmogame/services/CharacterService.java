@@ -1,6 +1,8 @@
 package com.ifpe.mmogame.services;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ifpe.mmogame.entities.Photo;
 import com.ifpe.mmogame.entities.User;
-import com.ifpe.mmogame.dto.NewCharacterDTO;
+import com.ifpe.mmogame.dto.CharacterDTO;
 import com.ifpe.mmogame.entities.Character;
 import com.ifpe.mmogame.entities.Game;
 import com.ifpe.mmogame.repositories.CharacterRepository;
@@ -34,30 +36,59 @@ public class CharacterService {
     @Autowired
     private PasswordEncoder encoder;
 
-    public ResponseEntity<?> save (NewCharacterDTO cDto){
-        if(cDto.getName().isEmpty() || cDto.getUniqueName().isEmpty() || cDto.getGameId() == null) {
-            return ResponseEntity.badRequest().build();
+    public ResponseEntity<?> save(CharacterDTO cDto) {
+
+        try {
+            if (cDto.getName().isEmpty() || cDto.getUniqueName().isEmpty() || cDto.getGameId() == null) {
+                return ResponseEntity.badRequest().build();
+            }
+
+            Game g = new Game();
+            g.setName("qualquer nome");
+            g = this.gameRepo.save(g);
+            // g=this.gameRepo.findById(cDto.getGameId()).get(); //TODO: descomentar quando
+            // resolver a API
+
+            Character c = new Character();
+            c.setGame(g);
+            c.setName(cDto.getName());
+            c.setUniqueName(cDto.getUniqueName());
+            User u = this.userRepo.findByEmail(this.jwtUtils.getAuthorizedId()).get();
+            c.setUser(u);
+
+            c = this.characterRepo.save(c);
+
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
         }
-
-        Game g = new Game();
-        g=this.gameRepo.findById(cDto.getGameId()).get();
-
-        Character c = new Character();
-        c.setGame(g);
-        c.setName(cDto.getName());
-        c.setUniqueName(cDto.getUniqueName());
-        User u = this.userRepo.findByEmail(this.jwtUtils.getAuthorizedId()).get();
-        c.setUser(u);
-
-        c = this.characterRepo.save(c);
-
-        return ResponseEntity.ok().build();
 
     }
 
+    public ResponseEntity<?> showAllCharactersByUser() {
 
+        try {
 
+            User u = this.userRepo.findByEmail(this.jwtUtils.getAuthorizedId()).get();
 
+            List<Character> characters = this.characterRepo.findByUserId(u.getId());
+
+            List<CharacterDTO> dtoList = characters.stream()
+                    .map(c -> {
+                        CharacterDTO dto = new CharacterDTO();
+                        dto.setGameId(c.getGame().getId());
+                        dto.setName(c.getName());
+                        dto.setUniqueName(c.getUniqueName());
+                        return dto;
+                    })
+                    .toList();
+
+            return ResponseEntity.ok(dtoList);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
+
+    }
 
     public ResponseEntity<?> uploadPhoto(MultipartFile file, int characterId) {
 
@@ -65,7 +96,7 @@ public class CharacterService {
 
         try {
             p.setContent(file.getBytes());
-            
+
             p.setExtension(file.getContentType().split("/")[1]);
 
             p.setLength((int) file.getSize());
@@ -82,13 +113,12 @@ public class CharacterService {
 
             return ResponseEntity.ok().build();
         } catch (IOException e) {
-            
+
             e.printStackTrace();
         }
 
         return ResponseEntity.internalServerError().build();
 
     }
-
 
 }

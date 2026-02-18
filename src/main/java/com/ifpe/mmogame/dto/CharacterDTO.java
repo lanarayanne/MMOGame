@@ -1,6 +1,6 @@
 package com.ifpe.mmogame.dto;
 
-public class NewCharacterDTO {
+public class CharacterDTO {
     private Integer gameId;
     private String name;
     private String uniqueName;

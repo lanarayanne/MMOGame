@@ -7,8 +7,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ifpe.mmogame.dto.NewCharacterDTO;
+import com.ifpe.mmogame.dto.CharacterDTO;
 import com.ifpe.mmogame.services.CharacterService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/character")
@@ -18,8 +21,14 @@ public class CharacterController {
 
 
     @PostMapping("/novo")
-    public ResponseEntity<?> createNewCharacter(@RequestBody NewCharacterDTO characterDTO) {
+    public ResponseEntity<?> createNewCharacter(@RequestBody CharacterDTO characterDTO) {
         return this.characterS.save(characterDTO);
     }
+
+    @GetMapping("list")
+    public ResponseEntity<?> getAllCharactersByUser() {
+        return this.characterS.showAllCharactersByUser();
+    }
+    
 
 }

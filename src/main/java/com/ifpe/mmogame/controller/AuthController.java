@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ifpe.mmogame.dto.LoginDTO;
+import com.ifpe.mmogame.dto.UserDTO;
 import com.ifpe.mmogame.entities.User;
 import com.ifpe.mmogame.services.AuthService;
 
@@ -18,12 +19,12 @@ public class AuthController {
     private AuthService authS;
 
     @PostMapping
-    public ResponseEntity<?> postNewUser(@RequestBody User user) {
+    public ResponseEntity<?> postNewUser(@RequestBody UserDTO user) {
         return this.authS.newUser(user); 
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> postMethodName(@RequestBody LoginDTO login) {
+    public ResponseEntity<?> loginMethod(@RequestBody LoginDTO login) {
         return this.authS.login(login);
     }
 

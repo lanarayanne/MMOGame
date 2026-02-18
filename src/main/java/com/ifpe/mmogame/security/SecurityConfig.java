@@ -14,18 +14,20 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .csrf(csrf -> csrf.disable())
             .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .cors(Customizer.withDefaults()) 
+            .cors(Customizer.withDefaults()) // <--- Habilita o CORS aqui
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers("/user/**").hasRole("USER")
-                .requestMatchers("/question/**").hasRole("USER")
-                .requestMatchers("/bet/**").hasRole("USER")
-                .requestMatchers("/public/**").permitAll()
+                .requestMatchers("/character/**").hasRole("USER")
+
+                // .requestMatchers("/bet/**").hasRole("USER")
+                // .requestMatchers("/public/**").permitAll()
                 
                 .anyRequest().authenticated()
             )
@@ -38,5 +40,4 @@ public class SecurityConfig {
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
-
 }

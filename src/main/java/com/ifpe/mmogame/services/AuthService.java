@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.ifpe.mmogame.dto.LoginDTO;
+import com.ifpe.mmogame.dto.UserDTO;
 import com.ifpe.mmogame.entities.User;
 import com.ifpe.mmogame.repositories.UserRepository;
 import com.ifpe.mmogame.security.JwtUtils;
@@ -21,11 +22,15 @@ public class AuthService {
     @Autowired
     private PasswordEncoder encoder;
 
-    public ResponseEntity<?> newUser(User user){
+    public ResponseEntity<?> newUser(UserDTO user){
 
-        user.setPassword(this.encoder.encode(user.getPassword()));
+        User u = new User();
+        u.setEmail(user.getEmail());
+        // u.setPassword(user.getPassword());
 
-        this.userRepo.save(user);
+        u.setPassword(this.encoder.encode(user.getPassword()));
+
+        this.userRepo.save(u);
         
         return ResponseEntity.ok("Success!");
 

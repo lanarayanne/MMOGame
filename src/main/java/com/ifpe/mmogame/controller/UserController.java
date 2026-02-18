@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.ifpe.mmogame.dto.NewCharacterDTO;
+import com.ifpe.mmogame.dto.CharacterDTO;
 import com.ifpe.mmogame.dto.NewPasswordDTO;
 import com.ifpe.mmogame.services.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
