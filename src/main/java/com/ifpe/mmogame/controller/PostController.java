@@ -24,8 +24,8 @@ public class PostController {
 
 
     @PostMapping("/{characterId}/novo")
-    public ResponseEntity<?> createNewPost(@RequestBody NewPostDTO postDTO, @PathVariable int characterId) {
-        return this.postS.save(postDTO, characterId);
+    public ResponseEntity<?> createNewPost(@RequestBody String text, @PathVariable int characterId) {
+        return this.postS.save(text, characterId);
     }
 
     @GetMapping("/{characterId}/perfil")

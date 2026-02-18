@@ -28,9 +28,9 @@ public class PostService {
     @Autowired
     private UserRepository userRepo;
 
-    public ResponseEntity<?> save(NewPostDTO pDto, int characterId) {
+    public ResponseEntity<?> save(String text, int characterId) {
 
-        if (pDto.getText().isEmpty()) {
+        if (text.isEmpty()) {
             return ResponseEntity.badRequest().build();
         }
 
@@ -41,7 +41,7 @@ public class PostService {
         // Character c = this.characterRepo.findById(characterId).get();
 
         Post p = new Post();
-        p.setText(pDto.getText());
+        p.setText(text);
         p.setCharacter(c);
         p = this.postRepo.save(p);
 
