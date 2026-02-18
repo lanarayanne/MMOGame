@@ -28,20 +28,20 @@ public class PostService {
     @Autowired
     private UserRepository userRepo;
 
-    public ResponseEntity<?> save(String text, int characterId) {
+    public ResponseEntity<?> save(NewPostDTO pDto) {
 
-        if (text.isEmpty()) {
+        if (pDto.getText().isEmpty()) {
             return ResponseEntity.badRequest().build();
         }
 
         User u = this.userRepo.findByEmail(this.jwtUtils.getAuthorizedId()).get();
 
-        Character c = this.characterRepo.findByIdAndUserId(characterId, u.getId()).get();
+        Character c = this.characterRepo.findByIdAndUserId(pDto.getCharacterId(), u.getId()).get();
 
         // Character c = this.characterRepo.findById(characterId).get();
 
         Post p = new Post();
-        p.setText(text);
+        p.setText(pDto.getText());
         p.setCharacter(c);
         p = this.postRepo.save(p);
 

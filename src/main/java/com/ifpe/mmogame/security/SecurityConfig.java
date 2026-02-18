@@ -24,9 +24,10 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers("/user/**").hasRole("USER")
-                .requestMatchers("/character/**").hasRole("USER")
+                .requestMatchers("/personagem/**").hasRole("USER")
                 .requestMatchers("/post/**").hasRole("USER")
                 .requestMatchers("/like/**").hasRole("USER")
+                .requestMatchers("/comentario/**").hasRole("USER")
 
                 // .requestMatchers("/bet/**").hasRole("USER")
                 // .requestMatchers("/public/**").permitAll()
