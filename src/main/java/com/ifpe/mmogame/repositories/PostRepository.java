@@ -1,6 +1,7 @@
 package com.ifpe.mmogame.repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,5 +13,6 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
     List<Post> findByCharacterId(int characterId);
     @Query("SELECT p FROM Post p WHERE p.character.id <> :characterId")
     List<Post> findOtherCharactersPosts(@Param("characterId") int characterId);
+
 
 }

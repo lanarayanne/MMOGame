@@ -25,6 +25,7 @@ public class SecurityConfig {
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers("/user/**").hasRole("USER")
                 .requestMatchers("/character/**").hasRole("USER")
+                .requestMatchers("/post/**").hasRole("USER")
 
                 // .requestMatchers("/bet/**").hasRole("USER")
                 // .requestMatchers("/public/**").permitAll()

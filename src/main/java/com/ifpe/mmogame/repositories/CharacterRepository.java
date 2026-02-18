@@ -13,5 +13,7 @@ public interface CharacterRepository extends JpaRepository<Character, Integer> {
         Optional<Character> findByUniqueName(String uniqueName);
         List<Character> findByGame (String game);
         List<Character> findByUserId(Integer userId);
+        Optional<Character> findByIdAndUserId(Integer characterId, Integer userId);
+
 
 }
