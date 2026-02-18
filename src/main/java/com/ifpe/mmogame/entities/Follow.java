@@ -22,6 +22,7 @@ public class Follow {
     public void setId(int id) {
         this.id = id;
     }
+    //TODO: add Javadoc
     public Character getFollower() {
         return follower;
     }

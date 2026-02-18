@@ -8,17 +8,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ifpe.mmogame.dto.CharacterDTO;
+import com.ifpe.mmogame.dto.FollowDTO;
+import com.ifpe.mmogame.dto.NewFollowDTO;
 import com.ifpe.mmogame.services.CharacterService;
+import com.ifpe.mmogame.services.FollowService;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
-@RequestMapping("/character")
+@RequestMapping("/personagem")
 public class CharacterController {
     @Autowired
     private CharacterService characterS;
+    @Autowired
+    private FollowService followS;
 
 
     @PostMapping("/novo")
@@ -35,6 +41,22 @@ public class CharacterController {
     public ResponseEntity<?> getAllCharactersByGame(@PathVariable int characterId) {
         return this.characterS.showCharactersByGame(characterId);
     }
+
+    @PostMapping("/seguir")
+    public ResponseEntity<?> createNewFollow(@RequestBody NewFollowDTO followDTO) {
+        return this.followS.save(followDTO);
+    }
+
+    @GetMapping("/{characterId}/seguindo")
+    public ResponseEntity<?> getFollowing(@PathVariable int characterId) {
+        return this.followS.showFollowings(characterId);
+    }
+
+    @GetMapping("/{characterId}/seguidores")
+    public ResponseEntity<?> getFollowers(@PathVariable int characterId) {
+        return this.followS.showFollowers(characterId);
+    }
+    
     
 
 }
