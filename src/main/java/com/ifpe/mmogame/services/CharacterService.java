@@ -90,6 +90,34 @@ public class CharacterService {
 
     }
 
+    public ResponseEntity<?> showCharactersByGame(int characterId) {
+
+        try {
+
+            User u = this.userRepo.findByEmail(this.jwtUtils.getAuthorizedId()).get();
+            Character character = new Character();
+            character = this.characterRepo.findById(characterId).get();
+
+            List<Character> characters = this.characterRepo.findByGame(character.getGame());
+
+            List<CharacterDTO> dtoList = characters.stream()
+                    .filter(item -> item.getId() != characterId)
+                    .map(c -> {
+                        CharacterDTO dto = new CharacterDTO();
+                        dto.setGameId(c.getGame().getId());
+                        dto.setName(c.getName());
+                        dto.setUniqueName(c.getUniqueName());
+                        return dto;
+                    })
+                    .toList();
+
+            return ResponseEntity.ok(dtoList);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
+
+    }
+
     public ResponseEntity<?> uploadPhoto(MultipartFile file, int characterId) {
 
         Photo p = new Photo();

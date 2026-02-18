@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ifpe.mmogame.dto.CharacterDTO;
 import com.ifpe.mmogame.services.CharacterService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -25,9 +26,14 @@ public class CharacterController {
         return this.characterS.save(characterDTO);
     }
 
-    @GetMapping("list")
+    @GetMapping("/lista")
     public ResponseEntity<?> getAllCharactersByUser() {
         return this.characterS.showAllCharactersByUser();
+    }
+
+    @GetMapping("/{characterId}")
+    public ResponseEntity<?> getAllCharactersByGame(@PathVariable int characterId) {
+        return this.characterS.showCharactersByGame(characterId);
     }
     
 
