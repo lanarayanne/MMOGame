@@ -1,5 +1,7 @@
 package com.ifpe.mmogame.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,9 +11,8 @@ import jakarta.persistence.Id;
 @Entity
 public class Game {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
-    @Column(nullable = true)
+    @JsonProperty("title")
     private String name;
 
     public int getId() {

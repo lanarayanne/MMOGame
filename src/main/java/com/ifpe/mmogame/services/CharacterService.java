@@ -43,11 +43,7 @@ public class CharacterService {
                 return ResponseEntity.badRequest().build();
             }
 
-            Game g = new Game();
-            g.setName("qualquer nome");
-            g = this.gameRepo.save(g);
-            // g=this.gameRepo.findById(cDto.getGameId()).get(); //TODO: descomentar quando
-            // resolver a API
+            Game g = this.gameRepo.findById(cDto.getGameId()).get(); 
 
             Character c = new Character();
             c.setGame(g);
