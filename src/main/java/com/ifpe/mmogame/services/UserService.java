@@ -57,20 +57,4 @@ public class UserService {
 
     }
 
-    
-
-    // public ResponseEntity<?> getPerfil() {
-    //     String userId = this.jwtUtils.getAuthorizedId();
-
-    //     Optional<Photo> photoOpt = this.photoRepo.findByEmailUser(userId);
-
-    //     if (photoOpt.isPresent()) {
-    //         Photo p = photoOpt.get();
-    //         p.setUser(null);
-    //         return ResponseEntity.ok(photoOpt.get());
-    //     }
-
-    //     return ResponseEntity.notFound().build();
-    // }
-
 }

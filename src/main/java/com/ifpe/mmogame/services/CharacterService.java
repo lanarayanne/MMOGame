@@ -3,6 +3,7 @@ package com.ifpe.mmogame.services;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -125,7 +126,7 @@ public class CharacterService {
 
             p.setLength((int) file.getSize());
 
-            // String userId = this.jwtUtils.getAuthorizedId();
+            String userId = this.jwtUtils.getAuthorizedId();
 
             // User user = this.userRepo.findByEmail(userId).get();
 
@@ -143,6 +144,22 @@ public class CharacterService {
 
         return ResponseEntity.internalServerError().build();
 
+    }
+
+        public ResponseEntity<?> getPerfil(int characterId) {
+        String userEmail = this.jwtUtils.getAuthorizedId();
+        User user = this.userRepo.findByEmail(userEmail).get();
+        Character c = this.characterRepo.findByIdAndUserId(characterId, user.getId()).get();
+
+        Optional<Photo> photoOpt = this.photoRepo.findByCharacterId(c.getId());
+
+        if (photoOpt.isPresent()) {
+            Photo p = photoOpt.get();
+            p.setCharacter(c);
+            return ResponseEntity.ok(photoOpt.get());
+        }
+
+        return ResponseEntity.notFound().build();
     }
 
 }

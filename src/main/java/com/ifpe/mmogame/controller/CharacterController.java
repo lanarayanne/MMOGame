@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ifpe.mmogame.dto.CharacterDTO;
 import com.ifpe.mmogame.dto.FollowDTO;
@@ -14,6 +15,7 @@ import com.ifpe.mmogame.services.CharacterService;
 import com.ifpe.mmogame.services.FollowService;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -55,6 +57,16 @@ public class CharacterController {
     @GetMapping("/{characterId}/seguidores")
     public ResponseEntity<?> getFollowers(@PathVariable int characterId) {
         return this.followS.showFollowers(characterId);
+    }
+
+    @PatchMapping("/foto/{characterId}")
+    public ResponseEntity<?> uploadPhoto(@RequestParam("file") MultipartFile file, @PathVariable int characterId){
+        return this.characterS.uploadPhoto(file, characterId);
+    }
+
+    @GetMapping("/perfil/{characterId}")
+    public ResponseEntity<?> getPerfil(@PathVariable int characterId) {
+        return this.characterS.getPerfil(characterId);
     }
     
     

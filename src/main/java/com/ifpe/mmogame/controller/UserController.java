@@ -32,15 +32,7 @@ public class UserController {
         return this.userS.updatePassword(newPass);
     }
 
-    // @PatchMapping("/perfil")
-    // public ResponseEntity<?> uploadPhoto(@RequestParam("file") MultipartFile file){
-    //     return this.userS.uploadPhoto(file);
-    // }
-
-    // @GetMapping("/perfil")
-    // public ResponseEntity<?> getPerfil() {
-    //     return this.userS.getPerfil();
-    // }
+    
     
 
 }
