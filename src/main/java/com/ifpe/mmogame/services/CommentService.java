@@ -69,7 +69,9 @@ public class CommentService {
     }
 
     public ResponseEntity<?> getCommentsByCharacter(int characterId) {
-        List<CommentPost> comments = this.commentRepo.findByCharacterId(characterId);
+        User u = this.userRepo.findByEmail(this.jwtUtils.getAuthorizedId()).get();
+        Character c = this.characterRepo.findByIdAndUserId(characterId, u.getId()).get();
+        List<CommentPost> comments = this.commentRepo.findByCharacterId(c.getId());
         List<CommentPostDTO> dtos = comments.stream().map(comment -> {
             CommentPostDTO dto = new CommentPostDTO();
             dto.setCharacterId(comment.getCharacter().getId());

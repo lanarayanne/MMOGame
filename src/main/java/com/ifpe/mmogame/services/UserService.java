@@ -6,7 +6,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import com.ifpe.mmogame.dto.NewPasswordDTO;
 import com.ifpe.mmogame.entities.User;
-import com.ifpe.mmogame.repositories.PhotoRepository;
 import com.ifpe.mmogame.repositories.UserRepository;
 import com.ifpe.mmogame.security.JwtUtils;
 
@@ -19,8 +18,6 @@ public class UserService {
     private JwtUtils jwtUtils;
     @Autowired
     private UserRepository userRepo;
-    @Autowired
-    private PhotoRepository photoRepo;
     @Autowired
     private PasswordEncoder encoder;
 

@@ -32,12 +32,8 @@ public class PostService {
         if (pDto.getText().isEmpty()) {
             return ResponseEntity.badRequest().build();
         }
-
         User u = this.userRepo.findByEmail(this.jwtUtils.getAuthorizedId()).get();
-
         Character c = this.characterRepo.findByIdAndUserId(pDto.getCharacterId(), u.getId()).get();
-
-        // Character c = this.characterRepo.findById(characterId).get();
 
         Post p = new Post();
         p.setText(pDto.getText());
@@ -46,16 +42,6 @@ public class PostService {
 
         return ResponseEntity.ok().build();
 
-    }
-
-    public ResponseEntity<?> update(Integer postId, NewPostDTO pDto) {
-
-        User u = this.userRepo.findByEmail(this.jwtUtils.getAuthorizedId()).get();
-
-        Post p = this.postRepo.findById(postId).get();
-        p.setText(pDto.getText());
-        this.postRepo.save(p);
-        return ResponseEntity.ok().build();
     }
 
     public ResponseEntity<?> getOthersPosts(int characterId) {
@@ -92,5 +78,15 @@ public class PostService {
         this.postRepo.deleteById(postId);
         return ResponseEntity.ok().build();
     }
+
+        // public ResponseEntity<?> update(Integer postId, NewPostDTO pDto) {
+
+    //     User u = this.userRepo.findByEmail(this.jwtUtils.getAuthorizedId()).get();
+
+    //     Post p = this.postRepo.findById(postId).get();
+    //     p.setText(pDto.getText());
+    //     this.postRepo.save(p);
+    //     return ResponseEntity.ok().build();
+    // }
 
 }

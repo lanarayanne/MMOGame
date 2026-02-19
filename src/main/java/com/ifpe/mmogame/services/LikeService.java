@@ -48,10 +48,10 @@ public class LikeService {
         User u = this.userRepo.findByEmail(this.jwtUtils.getAuthorizedId()).get();
         Character c = this.characterRepo.findByIdAndUserId(characterId, u.getId()).get();
 
-        List<Like> likes = this.likeRepo.findByCharacterId(characterId);
+        List<Like> likes = this.likeRepo.findByCharacterId(c.getId());
         List<LikeDTO> dtos = likes.stream().map(like -> {
             LikeDTO dto = new LikeDTO();
-            dto.setCharacterId(characterId);
+            dto.setCharacterId(like.getCharacter().getId());
             dto.setDate(like.getDate());
             dto.setId(like.getId());
             dto.setPostId(like.getPost().getId());
@@ -62,7 +62,6 @@ public class LikeService {
     }
 
     public ResponseEntity<?> showLikesByPost (int postId) {
-
         List<Like> likes = this.likeRepo.findByPostId(postId);
         List<LikeDTO> dtos = likes.stream().map(like -> {
             LikeDTO dto = new LikeDTO();

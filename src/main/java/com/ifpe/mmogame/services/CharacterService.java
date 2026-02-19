@@ -40,14 +40,13 @@ public class CharacterService {
             if (cDto.getName().isEmpty() || cDto.getUniqueName().isEmpty() || cDto.getGameId() == null) {
                 return ResponseEntity.badRequest().build();
             }
-
+            User u = this.userRepo.findByEmail(this.jwtUtils.getAuthorizedId()).get();
             Game g = this.gameRepo.findById(cDto.getGameId()).get(); 
 
             Character c = new Character();
             c.setGame(g);
             c.setName(cDto.getName());
             c.setUniqueName(cDto.getUniqueName());
-            User u = this.userRepo.findByEmail(this.jwtUtils.getAuthorizedId()).get();
             c.setUser(u);
 
             c = this.characterRepo.save(c);
@@ -64,7 +63,6 @@ public class CharacterService {
         try {
 
             User u = this.userRepo.findByEmail(this.jwtUtils.getAuthorizedId()).get();
-
             List<Character> characters = this.characterRepo.findByUserId(u.getId());
 
             List<CharacterDTO> dtoList = characters.stream()
@@ -89,9 +87,7 @@ public class CharacterService {
         try {
 
             User u = this.userRepo.findByEmail(this.jwtUtils.getAuthorizedId()).get();
-            Character character = new Character();
-            character = this.characterRepo.findById(characterId).get();
-
+            Character character =  this.characterRepo.findByIdAndUserId(characterId, u.getId()).get();
             List<Character> characters = this.characterRepo.findByGame(character.getGame());
 
             List<CharacterDTO> dtoList = characters.stream()
@@ -118,16 +114,11 @@ public class CharacterService {
 
         try {
             p.setContent(file.getBytes());
-
             p.setExtension(file.getContentType().split("/")[1]);
-
             p.setLength((int) file.getSize());
 
-            String userId = this.jwtUtils.getAuthorizedId();
-
-            // User user = this.userRepo.findByEmail(userId).get();
-
-            Character c = this.characterRepo.findById(characterId).get();
+            User u = this.userRepo.findByEmail(this.jwtUtils.getAuthorizedId()).get();
+            Character c = this.characterRepo.findByIdAndUserId(characterId, u.getId()).get();
 
             p.setCharacter(c);
 
