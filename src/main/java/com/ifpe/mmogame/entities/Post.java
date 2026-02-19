@@ -25,24 +25,31 @@ public class Post {
     public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
+
     public long getDate() {
         return date;
     }
+
     public void setDate(long date) {
         this.date = date;
     }
+
     public String getText() {
         return text;
     }
+
     public void setText(String text) {
         this.text = text;
     }
+
     public Character getCharacter() {
         return character;
     }
+
     public void setCharacter(Character character) {
         this.character = character;
     }

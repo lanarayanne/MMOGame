@@ -7,17 +7,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.ifpe.mmogame.dto.CharacterDTO;
 import com.ifpe.mmogame.dto.NewFollowDTO;
 import com.ifpe.mmogame.services.CharacterService;
 import com.ifpe.mmogame.services.FollowService;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-
 
 @RestController
 @RequestMapping("/personagem")
@@ -26,7 +23,6 @@ public class CharacterController {
     private CharacterService characterS;
     @Autowired
     private FollowService followS;
-
 
     @PostMapping("/novo")
     public ResponseEntity<?> createNewCharacter(@RequestBody CharacterDTO characterDTO) {
@@ -59,7 +55,7 @@ public class CharacterController {
     }
 
     @PatchMapping("/foto/{characterId}")
-    public ResponseEntity<?> uploadPhoto(@RequestParam("file") MultipartFile file, @PathVariable int characterId){
+    public ResponseEntity<?> uploadPhoto(@RequestParam("file") MultipartFile file, @PathVariable int characterId) {
         return this.characterS.uploadPhoto(file, characterId);
     }
 
@@ -67,7 +63,5 @@ public class CharacterController {
     public ResponseEntity<?> getPerfil(@PathVariable int characterId) {
         return this.characterS.getPerfil(characterId);
     }
-    
-    
 
 }

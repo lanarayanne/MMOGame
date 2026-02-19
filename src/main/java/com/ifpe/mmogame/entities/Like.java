@@ -26,27 +26,33 @@ public class Like {
     public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
+
     public long getDate() {
         return date;
     }
+
     public void setDate(long date) {
         this.date = date;
     }
+
     public Post getPost() {
         return post;
     }
+
     public void setPost(Post post) {
         this.post = post;
     }
+
     public Character getCharacter() {
         return character;
     }
+
     public void setCharacter(Character character) {
         this.character = character;
     }
-
 
 }

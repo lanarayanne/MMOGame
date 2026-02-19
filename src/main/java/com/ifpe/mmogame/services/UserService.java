@@ -9,8 +9,6 @@ import com.ifpe.mmogame.entities.User;
 import com.ifpe.mmogame.repositories.UserRepository;
 import com.ifpe.mmogame.security.JwtUtils;
 
-
-
 @Component
 public class UserService {
 
@@ -34,10 +32,10 @@ public class UserService {
 
     }
 
-    public ResponseEntity<?> updatePassword(NewPasswordDTO passDto){
+    public ResponseEntity<?> updatePassword(NewPasswordDTO passDto) {
         User u = this.userRepo.findByEmail(this.jwtUtils.getAuthorizedId()).get();
 
-        if(encoder.matches(passDto.getOldPassword(), u.getPassword())){
+        if (encoder.matches(passDto.getOldPassword(), u.getPassword())) {
             u.setPassword(encoder.encode(passDto.getNewPassword()));
 
             this.userRepo.save(u);

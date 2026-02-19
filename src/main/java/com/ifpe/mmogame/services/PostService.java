@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-
 import com.ifpe.mmogame.dto.NewPostDTO;
 import com.ifpe.mmogame.dto.PostDTO;
 import com.ifpe.mmogame.entities.Post;
@@ -79,14 +78,14 @@ public class PostService {
         return ResponseEntity.ok().build();
     }
 
-        // public ResponseEntity<?> update(Integer postId, NewPostDTO pDto) {
+    // public ResponseEntity<?> update(Integer postId, NewPostDTO pDto) {
 
-    //     User u = this.userRepo.findByEmail(this.jwtUtils.getAuthorizedId()).get();
+    // User u = this.userRepo.findByEmail(this.jwtUtils.getAuthorizedId()).get();
 
-    //     Post p = this.postRepo.findById(postId).get();
-    //     p.setText(pDto.getText());
-    //     this.postRepo.save(p);
-    //     return ResponseEntity.ok().build();
+    // Post p = this.postRepo.findById(postId).get();
+    // p.setText(pDto.getText());
+    // this.postRepo.save(p);
+    // return ResponseEntity.ok().build();
     // }
 
 }

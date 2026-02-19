@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-
 import com.ifpe.mmogame.dto.LikeDTO;
 import com.ifpe.mmogame.dto.NewLikeDTO;
 import com.ifpe.mmogame.entities.User;
@@ -31,7 +30,7 @@ public class LikeService {
     @Autowired
     private LikeRepository likeRepo;
 
-    public ResponseEntity<?> save (NewLikeDTO lDto) {
+    public ResponseEntity<?> save(NewLikeDTO lDto) {
         User u = this.userRepo.findByEmail(this.jwtUtils.getAuthorizedId()).get();
         Character c = this.characterRepo.findByIdAndUserId(lDto.getCharacterId(), u.getId()).get();
         Post p = this.postRepo.findById(lDto.getPostId()).get();
@@ -39,12 +38,12 @@ public class LikeService {
         Like l = new Like();
         l.setCharacter(c);
         l.setPost(p);
-        l=this.likeRepo.save(l);
+        l = this.likeRepo.save(l);
 
         return ResponseEntity.ok().build();
     }
 
-    public ResponseEntity<?> showLikesByCharacter (int characterId) {
+    public ResponseEntity<?> showLikesByCharacter(int characterId) {
         User u = this.userRepo.findByEmail(this.jwtUtils.getAuthorizedId()).get();
         Character c = this.characterRepo.findByIdAndUserId(characterId, u.getId()).get();
 
@@ -56,12 +55,12 @@ public class LikeService {
             dto.setId(like.getId());
             dto.setPostId(like.getPost().getId());
             return dto;
-        }).toList(); 
+        }).toList();
 
         return ResponseEntity.ok(dtos);
     }
 
-    public ResponseEntity<?> showLikesByPost (int postId) {
+    public ResponseEntity<?> showLikesByPost(int postId) {
         List<Like> likes = this.likeRepo.findByPostId(postId);
         List<LikeDTO> dtos = likes.stream().map(like -> {
             LikeDTO dto = new LikeDTO();
@@ -70,7 +69,7 @@ public class LikeService {
             dto.setId(like.getId());
             dto.setPostId(postId);
             return dto;
-        }).toList(); 
+        }).toList();
 
         return ResponseEntity.ok(dtos);
     }

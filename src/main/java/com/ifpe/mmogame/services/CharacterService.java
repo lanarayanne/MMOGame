@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.ifpe.mmogame.entities.Photo;
 import com.ifpe.mmogame.entities.User;
 import com.ifpe.mmogame.dto.CharacterDTO;
@@ -33,7 +32,6 @@ public class CharacterService {
     @Autowired
     private GameRepository gameRepo;
 
-
     public ResponseEntity<?> save(CharacterDTO cDto) {
 
         try {
@@ -41,7 +39,7 @@ public class CharacterService {
                 return ResponseEntity.badRequest().build();
             }
             User u = this.userRepo.findByEmail(this.jwtUtils.getAuthorizedId()).get();
-            Game g = this.gameRepo.findById(cDto.getGameId()).get(); 
+            Game g = this.gameRepo.findById(cDto.getGameId()).get();
 
             Character c = new Character();
             c.setGame(g);
@@ -87,7 +85,7 @@ public class CharacterService {
         try {
 
             User u = this.userRepo.findByEmail(this.jwtUtils.getAuthorizedId()).get();
-            Character character =  this.characterRepo.findByIdAndUserId(characterId, u.getId()).get();
+            Character character = this.characterRepo.findByIdAndUserId(characterId, u.getId()).get();
             List<Character> characters = this.characterRepo.findByGame(character.getGame());
 
             List<CharacterDTO> dtoList = characters.stream()
@@ -134,7 +132,7 @@ public class CharacterService {
 
     }
 
-        public ResponseEntity<?> getPerfil(int characterId) {
+    public ResponseEntity<?> getPerfil(int characterId) {
         String userEmail = this.jwtUtils.getAuthorizedId();
         User user = this.userRepo.findByEmail(userEmail).get();
         Character c = this.characterRepo.findByIdAndUserId(characterId, user.getId()).get();

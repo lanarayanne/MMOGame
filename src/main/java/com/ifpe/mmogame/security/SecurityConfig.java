@@ -18,24 +18,19 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable())
-            .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .cors(Customizer.withDefaults()) // <--- Habilita o CORS aqui
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/auth/**").permitAll()
-                .requestMatchers("/user/**").hasRole("USER")
-                .requestMatchers("/personagem/**").hasRole("USER")
-                .requestMatchers("/post/**").hasRole("USER")
-                .requestMatchers("/like/**").hasRole("USER")
-                .requestMatchers("/comentario/**").hasRole("USER")
-                .requestMatchers("/api/game/**").hasRole("USER")
-
-                // .requestMatchers("/bet/**").hasRole("USER")
-                // .requestMatchers("/public/**").permitAll()
-                
-                .anyRequest().authenticated()
-            )
-            .addFilterBefore(new JwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+                .csrf(csrf -> csrf.disable())
+                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .cors(Customizer.withDefaults()) // <--- Habilita o CORS aqui
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/user/**").hasRole("USER")
+                        .requestMatchers("/personagem/**").hasRole("USER")
+                        .requestMatchers("/post/**").hasRole("USER")
+                        .requestMatchers("/like/**").hasRole("USER")
+                        .requestMatchers("/comentario/**").hasRole("USER")
+                        .requestMatchers("/api/game/**").hasRole("USER")
+                        .anyRequest().authenticated())
+                .addFilterBefore(new JwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

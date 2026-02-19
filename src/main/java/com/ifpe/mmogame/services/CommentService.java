@@ -1,12 +1,10 @@
 package com.ifpe.mmogame.services;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-
 import com.ifpe.mmogame.dto.CommentPostDTO;
 import com.ifpe.mmogame.dto.NewCommentDTO;
 import com.ifpe.mmogame.entities.Post;
@@ -64,7 +62,6 @@ public class CommentService {
             return dto;
         }).toList();
 
-        
         return ResponseEntity.ok(dtos);
     }
 
@@ -82,10 +79,7 @@ public class CommentService {
             return dto;
         }).toList();
 
-        
         return ResponseEntity.ok(dtos);
     }
-
-
 
 }

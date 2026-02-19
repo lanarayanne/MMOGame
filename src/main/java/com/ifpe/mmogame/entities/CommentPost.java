@@ -20,37 +20,46 @@ public class CommentPost {
     @Lob
     private String text;
 
-    public CommentPost(){
+    public CommentPost() {
         this.date = System.currentTimeMillis();
     }
 
     public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
+
     public Post getPost() {
         return post;
     }
+
     public void setPost(Post post) {
         this.post = post;
     }
+
     public long getDate() {
         return date;
     }
+
     public void setDate(long date) {
         this.date = date;
     }
+
     public Character getCharacter() {
         return character;
     }
+
     public void setCharacter(Character character) {
         this.character = character;
     }
+
     public String getText() {
         return text;
     }
+
     public void setText(String text) {
         this.text = text;
     }

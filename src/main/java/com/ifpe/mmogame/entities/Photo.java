@@ -16,7 +16,7 @@ public class Photo {
     private int id;
     @Lob
     private byte[] content;
-    @Column(length=4)
+    @Column(length = 4)
     private String extension;
     private int length;
 

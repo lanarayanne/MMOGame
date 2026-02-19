@@ -7,10 +7,8 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.ifpe.mmogame.dto.NewPasswordDTO;
 import com.ifpe.mmogame.services.UserService;
-
 
 @RestController
 @RequestMapping("/user")
@@ -24,11 +22,8 @@ public class UserController {
     }
 
     @PatchMapping("/password")
-    public ResponseEntity<?> newPassword (@RequestBody NewPasswordDTO newPass){
+    public ResponseEntity<?> newPassword(@RequestBody NewPasswordDTO newPass) {
         return this.userS.updatePassword(newPass);
     }
-
-    
-    
 
 }

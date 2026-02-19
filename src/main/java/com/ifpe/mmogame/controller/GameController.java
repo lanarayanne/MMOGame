@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.ifpe.mmogame.entities.Game;
 import com.ifpe.mmogame.services.GameService;
 
@@ -28,5 +27,5 @@ public class GameController {
     public ResponseEntity<List<Game>> list() {
         return ResponseEntity.ok(gameService.listAllFromDb());
     }
-    
+
 }

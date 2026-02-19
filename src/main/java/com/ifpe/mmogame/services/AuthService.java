@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-
 import com.ifpe.mmogame.dto.LoginDTO;
 import com.ifpe.mmogame.dto.UserDTO;
 import com.ifpe.mmogame.entities.User;
@@ -22,29 +21,29 @@ public class AuthService {
     @Autowired
     private PasswordEncoder encoder;
 
-    public ResponseEntity<?> newUser(UserDTO user){
+    public ResponseEntity<?> newUser(UserDTO user) {
 
         User u = new User();
         u.setEmail(user.getEmail());
         u.setPassword(this.encoder.encode(user.getPassword()));
 
         this.userRepo.save(u);
-        
+
         return ResponseEntity.ok("Success!");
 
     }
 
-    public ResponseEntity<?> login(LoginDTO login){
-        
+    public ResponseEntity<?> login(LoginDTO login) {
+
         Optional<User> userOpt = this.userRepo.findByEmail(login.getEmail());
 
-        if(userOpt.isPresent()){
+        if (userOpt.isPresent()) {
 
             User user = userOpt.get();
 
-            if(this.encoder.matches(login.getPassword(), user.getPassword())){
+            if (this.encoder.matches(login.getPassword(), user.getPassword())) {
                 return ResponseEntity.ok(this.jwtUtils
-                    .generateToken(user.getEmail(), "USER"));
+                        .generateToken(user.getEmail(), "USER"));
             }
 
         }
@@ -52,6 +51,5 @@ public class AuthService {
         return ResponseEntity.badRequest().body("Invalid Credentials");
 
     }
-
 
 }

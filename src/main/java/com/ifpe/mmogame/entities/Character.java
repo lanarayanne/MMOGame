@@ -25,35 +25,41 @@ public class Character {
     public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
+
     public Game getGame() {
         return game;
     }
+
     public void setGame(Game game) {
         this.game = game;
     }
+
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public String getUniqueName() {
         return uniqueName;
     }
+
     public void setUniqueName(String uniqueName) {
         this.uniqueName = uniqueName;
     }
+
     public User getUser() {
         return user;
     }
+
     public void setUser(User user) {
         this.user = user;
     }
 
-
-
-    
 }
