@@ -4,17 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.ifpe.mmogame.dto.NewPasswordDTO;
-import com.ifpe.mmogame.entities.Photo;
 import com.ifpe.mmogame.entities.User;
 import com.ifpe.mmogame.repositories.PhotoRepository;
 import com.ifpe.mmogame.repositories.UserRepository;
 import com.ifpe.mmogame.security.JwtUtils;
 
-import java.io.IOException;
-import java.util.Optional;
 
 
 @Component

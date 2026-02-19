@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ifpe.mmogame.dto.CharacterDTO;
-import com.ifpe.mmogame.dto.FollowDTO;
 import com.ifpe.mmogame.dto.NewFollowDTO;
 import com.ifpe.mmogame.services.CharacterService;
 import com.ifpe.mmogame.services.FollowService;

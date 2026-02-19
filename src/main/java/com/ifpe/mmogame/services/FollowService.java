@@ -7,19 +7,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import com.ifpe.mmogame.dto.CharacterDTO;
-import com.ifpe.mmogame.dto.FollowDTO;
-import com.ifpe.mmogame.dto.LikeDTO;
 import com.ifpe.mmogame.dto.NewFollowDTO;
-import com.ifpe.mmogame.dto.NewLikeDTO;
-import com.ifpe.mmogame.entities.Like;
-import com.ifpe.mmogame.entities.Post;
 import com.ifpe.mmogame.entities.User;
 import com.ifpe.mmogame.entities.Character;
 import com.ifpe.mmogame.entities.Follow;
 import com.ifpe.mmogame.repositories.CharacterRepository;
 import com.ifpe.mmogame.repositories.FollowRepository;
-import com.ifpe.mmogame.repositories.LikeRepository;
-import com.ifpe.mmogame.repositories.PostRepository;
 import com.ifpe.mmogame.repositories.UserRepository;
 import com.ifpe.mmogame.security.JwtUtils;
 
@@ -27,8 +20,6 @@ import com.ifpe.mmogame.security.JwtUtils;
 public class FollowService {
     @Autowired
     private JwtUtils jwtUtils;
-    @Autowired
-    private PostRepository postRepo;
     @Autowired
     private CharacterRepository characterRepo;
     @Autowired

@@ -8,8 +8,6 @@ import org.springframework.stereotype.Component;
 
 import com.ifpe.mmogame.dto.LikeDTO;
 import com.ifpe.mmogame.dto.NewLikeDTO;
-import com.ifpe.mmogame.dto.NewPostDTO;
-import com.ifpe.mmogame.dto.PostDTO;
 import com.ifpe.mmogame.entities.User;
 import com.ifpe.mmogame.repositories.CharacterRepository;
 import com.ifpe.mmogame.repositories.LikeRepository;

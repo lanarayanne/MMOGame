@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ifpe.mmogame.dto.LoginDTO;
 import com.ifpe.mmogame.dto.UserDTO;
-import com.ifpe.mmogame.entities.User;
 import com.ifpe.mmogame.services.AuthService;
 
 @RestController

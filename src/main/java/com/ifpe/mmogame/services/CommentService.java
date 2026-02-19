@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import com.ifpe.mmogame.dto.CommentPostDTO;
 import com.ifpe.mmogame.dto.NewCommentDTO;
-import com.ifpe.mmogame.dto.PostDTO;
 import com.ifpe.mmogame.entities.Post;
 import com.ifpe.mmogame.entities.Character;
 import com.ifpe.mmogame.entities.CommentPost;
