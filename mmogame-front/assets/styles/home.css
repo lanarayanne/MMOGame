@@ -1,0 +1,250 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+}
+
+body {
+    background: #0d0f14;
+    color: #fff;
+}
+
+/* Navbar */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px;
+    border-bottom: 1px solid #1d1f27;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.nav-links a {
+    margin-left: 30px;
+    text-decoration: none;
+    color: #aaa;
+    font-size: 14px;
+}
+
+.nav-links a:hover {
+    color: #fff;
+}
+
+/* Hero */
+
+.hero {
+    text-align: center;
+    padding: 120px 20px 80px;
+}
+
+.hero h1 {
+    font-size: 64px;
+    font-weight: 800;
+    line-height: 1.1;
+    max-width: 900px;
+    margin: auto;
+}
+
+.hero p {
+    color: #aaa;
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+.hero button {
+    margin-top: 40px;
+    padding: 14px 28px;
+    border: none;
+    background: #fff;
+    color: #000;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.hero button:hover {
+    opacity: 0.85;
+}
+
+/* Market Cards */
+
+.section {
+    padding: 80px 60px;
+}
+
+.section h2 {
+    font-size: 32px;
+    margin-bottom: 40px;
+}
+
+.market-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: #141720;
+    border: 1px solid #1f2230;
+    padding: 20px;
+    border-radius: 14px;
+    transition: 0.2s;
+}
+
+.card:hover {
+    border-color: #2e3345;
+    transform: translateY(-4px);
+}
+
+.card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.price {
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.up { color: #22c55e; }
+.down { color: #ef4444; }
+footer {
+    text-align: center;
+    padding: 40px;
+    border-top: 1px solid #1d1f27;
+    color: #777;
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 20px;
+    }
+    .section {
+        padding: 60px 20px;
+    }
+    .hero h1 {
+        font-size: 42px;
+    }
+}
+
+/* Botão abrir modal */
+
+.login-btn {
+    padding: 10px 20px;
+    background: #fff;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Fundo modal */
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(6px);
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.25s ease;
+}
+
+/* Conteúdo */
+
+.modal-content {
+    background: #141720;
+    border: 1px solid #1f2230;
+    border-radius: 16px;
+    padding: 40px;
+    width: 100%;
+    max-width: 380px;
+    position: relative;
+    animation: slideUp 0.25s ease;
+}
+
+.modal-content h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 14px;
+    border-radius: 8px;
+    border: 1px solid #2a2d3a;
+    background: #0d0f14;
+    color: #fff;
+    font-size: 14px;
+}
+
+.modal-content input:focus {
+    outline: none;
+    border-color: #555;
+}
+
+.modal-content button {
+    width: 100%;
+    padding: 14px;
+    background: #fff;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.modal-content button:hover {
+    opacity: 0.85;
+}
+
+.signup {
+    margin-top: 16px;
+    font-size: 13px;
+    color: #aaa;
+    text-align: center;
+}
+
+.signup a {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Fechar */
+
+.close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    font-size: 22px;
+    cursor: pointer;
+    color: #aaa;
+}
+
+.close:hover {
+    color: #fff;
+}
+
+/* Animações */
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes slideUp {
+    from {transform: translateY(20px); opacity: 0;}
+    to {transform: translateY(0); opacity: 1;}
+}

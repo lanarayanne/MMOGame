@@ -21,14 +21,24 @@ public class UserService {
 
     public ResponseEntity<?> getUser() {
 
-        String id = jwtUtils.getAuthorizedId();
+        String email = jwtUtils.getAuthorizedId();
 
-        User u = userRepo.findById(Integer.parseInt(id)).get();
+        Optional<User> userOpt = userRepo.findByEmail(email);
 
-        u.setEmail(null);
-        u.setPassword(null);
+        if (userOpt.isPresent()) {
+            User u = userOpt.get();
+            UserDTO dto = new UserDTO();
+            dto.setId(u.getId());
+            dto.setEmail(u.getEmail());
+            return ResponseEntity.ok(dto);
+        }
 
-        return ResponseEntity.ok(u);
+        // User u = userRepo.findById(Integer.parseInt(id)).get();
+        // u.setName(null);
+        // u.setEmail(null);
+        // u.setPassword(null);
+
+        return ResponseEntity.notFound().build();
 
     }
 

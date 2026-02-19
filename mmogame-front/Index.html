@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MMOGame</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="assets\styles\index.css" />
+    <style>
+    </style>
+</head>
+
+<body onload="loadPage()">
+
+    <script>
+        if (!sessionStorage.getItem("token")) {
+            location.href = "Home.html"
+        }
+
+    </script>
+
+    <nav class="navbar">
+        <div class="logo">MMOGame</div>
+        <div class="user"><img src="#" id="userPerfil" style="width: 30px;" />
+            <p id="nome"></p>
+        </div>
+    </nav>
+
+    <section class="dashboard">
+
+        <!-- Card principal -->
+
+        <div class="featured-card">
+            <h2>__content__</h2>
+            <p>__desc__</p>
+            <div class="prob">Pot:__pot__</div>
+            <div class="prob">Bets:__bet__</div>
+            <button class="trade-btn">Apostar</button>
+        </div>
+
+        <!-- Cards menores -->
+
+        <div class="side-column">
+
+            <div class="small-card">
+                <h3>__content__</h3>
+                <div class="small-prob down">Pot: __pot__</div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <footer>
+        © 2026 Koshinha — Todos os direitos reservados
+    </footer>
+
+    <script>
+
+        async function loadPage() {
+
+            const options = {
+                method: "GET",
+                headers: {
+                    "Accept": "application/json",
+                    "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+                }
+            }
+
+            const response = await fetch("http://localhost:8080/user", options
+            )
+
+            const json = await response.json()
+
+            document.getElementById("nome").innerHTML = json.name
+
+            const responsePhoto = await fetch("http://localhost:8080/user/perfil", options)
+
+            const photo = await responsePhoto.json()
+
+            const imagem = document.getElementById("userPerfil")
+
+            console.log(photo)
+
+            imagem.setAttribute("src", `data:image/${photo.extension};base64,${photo.content}`)
+
+        }
+    </script>
+
+</body>
+
+</html>
