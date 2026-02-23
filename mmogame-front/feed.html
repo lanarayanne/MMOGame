@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>MMO Game - Feed</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/styles/index.css">
+    <link rel="stylesheet" href="assets/styles/feed.css">
+</head>
+<body onload="initFeed()">
+    <nav class="navbar">
+        <div class="logo">MMO Game</div>
+        <div class="nav-user">
+            <span id="display-user-name">Carregando...</span>
+            <button onclick="logout()" class="btn-logout">Sair</button>
+        </div>
+    </nav>
+
+    <div class="app-layout">
+        <aside class="sidebar-left">
+            <div class="sidebar-sticky">
+                <div class="user-card-sidebar">
+                    <img src="assets/img/default-avatar.png" id="side-char-photo" class="side-photo">
+                    <div class="side-info">
+                        <strong id="side-char-name">Carregando...</strong>
+                        <span id="side-char-unique">@...</span>
+                    </div>
+                </div>
+
+                <nav class="side-nav">
+                    <a href="feed.html" class="active">🏠 Início</a>
+                    <a href="#" onclick="goToMyProfile()">👤 Meu Perfil</a>
+                    <div class="search-container">
+                        <input type="text" id="search-input" placeholder="🔍 Pesquisar jogadores...">
+                        <div id="search-results" class="search-results-dropdown"></div>
+                    </div>
+                </nav>
+
+                <div class="side-footer">
+                    <button onclick="location.href='home.html'" class="btn-outline">🔄 Trocar Personagem</button>
+                    <button onclick="logout()" class="btn-logout-side">🚪 Sair</button>
+                </div>
+            </div>
+        </aside>
+
+        <main class="feed-main">
+
+            <div class="post-creator">
+                <div class="creator-avatar">
+                    <img src="assets/img/default-avatar.png" class="mini-avatar" id="creator-photo">
+                </div>
+                <div class="creator-input">
+                    <textarea id="post-text" placeholder="O que está acontecendo no seu servidor?"></textarea>
+                    <div class="creator-actions">
+                        <button onclick="createPost()" class="btn-primary">Postar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="timeline" class="timeline">
+                <p>Carregando postagens...</p>
+            </div>
+        </main>
+    </div>
+
+    <script src="assets/scripts/api.js"></script>
+    <script src="assets/scripts/feed.js"></script>
+</body>
+</html>

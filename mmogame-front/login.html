@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MMOGame - Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/styles/index.css">
+    <link rel="stylesheet" href="assets/styles/login.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">MMOGame</div>
+    </nav>
+
+    <main class="login-container">
+        <div class="login-box">
+            <h2>MMOGame</h2>
+
+            <form id="form-login">
+                <input type="email" placeholder="E-mail" name="login" required>
+                <input type="password" placeholder="Senha" name="password" required>
+                <button type="submit" class="btn-primary" id="login-button">Entrar</button>
+            </form>
+
+            <p class="signup-link">
+                Não tem conta?
+            </p>
+            <a href="#" id="open-register">Criar agora</a>
+        </div>
+    </main>
+
+    <footer>
+        © 2026 MMOGame — Todos os direitos reservados
+    </footer>
+
+    <div id="register-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Criar Conta</h2>
+            <form id="form-register">
+                <input type="text" placeholder="Nome Completo" name="name" required>
+                <input type="email" placeholder="E-mail" name="email" required>
+                <input type="password" placeholder="Senha" name="password" required>
+                <button type="submit" class="btn-primary">Cadastrar</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="assets/scripts/api.js"></script>
+    <script src="assets/scripts/auth.js"></script>
+</body>
+
+</html>

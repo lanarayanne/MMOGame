@@ -1,10 +1,19 @@
 package com.ifpe.mmogame.dto;
 
 public class CharacterDTO {
+    private int id;
     private Integer gameId;
     private String name;
     private String uniqueName;
     private int photoId;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getPhotoId() {
         return photoId;

@@ -4,144 +4,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MMOGame</title>
+    <title>MMO Game - Home</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="assets\styles\home.css" />
-    <!-- <link rel="stylesheet" type="text/css" href="assets\styles\index.css" /> -->
+    <link rel="stylesheet" href="assets/styles/index.css">
+    <link rel="stylesheet" href="assets/styles/home.css">
 </head>
 
-<body onload="loadPage()">
+<body onload="initHome()">
 
     <nav class="navbar">
-        <div class="logo">MMOGame</div>
-        <div class="nav-links">
-            <a href="#">Mercados</a>
-            <a href="#">Como funciona</a>
-            <a href="#" onclick="openModal()">Entrar</a>
+        <div class="logo">MMO Game</div>
+        <div class="nav-user">
+            <span id="display-user-name">Carregando...</span>
+            <button onclick="logout()" class="btn-logout">Sair</button>
         </div>
     </nav>
 
-    <section class="hero">
-        <h1>Faça sua pergunta e aposte com seus amigos</h1>
-        <p>Tem um cavalo voando, falta gasolina, quantas maças restaram?</p>
-        <div><button style="background-color: green">sim</button><button style="background-color: red">não</button>
-        </div>
-    </section>
-
-    <section class="section">
-        <h2>Perguntas em destaque</h2>
-
-        <div id="mainDiv" class="market-grid">
-            <div class="card">
-                <h3>__content__</h3>
-                <div class="price down">Pot: __pot__</div>
+    <main class="container">
+        <section class="character-section">
+            <div class="section-header">
+                <h1>Meus Personagens</h1>
+                <button id="btn-open-create" class="btn-primary">+ Novo Personagem</button>
             </div>
-        </div>
-    </section>
 
-    <footer>
-        © 2026 Koshinha — Todos os direitos reservados
-    </footer>
+            <div id="character-grid" class="character-grid">
+                <p>Buscando seus heróis...</p>
+            </div>
+        </section>
+    </main>
 
-
-    <!-- Modal -->
-    <div id="loginModal" class="modal">
+    <div id="modal-create" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeModal()">×</span>
+            <span class="close-modal">&times;</span>
+            <h2>Novo Personagem</h2>
+            <form id="form-create-character">
+                <div class="input-group">
+                    <label>Como seus amigos te verão:</label>
+                    <input type="text" name="name" placeholder="Ex: Arqueiro Sombrio" required>
+                </div>
 
-            <h2>Login Koshinha</h2>
+                <div class="input-group">
+                    <label>Identificador Único:</label>
+                    <input type="text" name="uniqueName" placeholder="Ex: arqueiro_77" required>
+                </div>
 
-            <form action="#" name="form-login" method="post">
-                <input type="email" placeholder="E-mail" name="login" required>
-                <input type="password" placeholder="Senha" name="password" required>
-                <button type="submit">Entrar</button>
+                <div class="input-group">
+                    <label>Em qual jogo ele vive?</label>
+                    <input type="text" id="game-search" list="game-options" placeholder="Digite para buscar um jogo..."
+                        required>
+                    <datalist id="game-options"></datalist>
+                    <input type="hidden" name="gameId" id="selected-game-id">
+                </div>
+
+                <div class="input-group">
+                    <label>Foto do Personagem:</label>
+                    <input type="file" id="char-photo" accept="image/*">
+                </div>
+
+                <button type="submit" class="btn-submit">Criar Herói</button>
             </form>
-
-            <p class="signup">Não tem conta? <a href="#">Criar agora</a></p>
         </div>
     </div>
 
-
-    <script>
-
-        const modal = document.getElementById("loginModal");
-
-        function openModal() {
-            modal.style.display = "flex";
-        }
-
-        function closeModal() {
-            modal.style.display = "none";
-        }
-
-        window.onclick = function (e) {
-            if (e.target === modal) closeModal();
-        };
-
-        const mainDiv = document.getElementById("mainDiv")
-        const cardContent = mainDiv.innerHTML;
-        mainDiv.innerHTML = ""
-
-        async function loadPage() {
-
-            const response = await fetch("http://localhost:8080/public/question",
-                {
-                    method: "GET",
-                    headers: {
-                        "Accept": "application/json"
-                    }
-                }
-            )
-
-            const json = await response.json()
-
-            json.forEach(element => {
-                const card = cardContent.replace("__content__", element.content)
-                    .replace("__pot__", element.pot)
-
-                mainDiv.innerHTML += card
-            });
-
-        }
-
-        document.forms["form-login"].addEventListener("submit", function (event) {
-            event.preventDefault()
-
-            const formData = new FormData(event.target)
-
-            const data = {}
-
-            for ([key, value] of formData) {
-                data[key] = value
-            }
-
-            fetch("http://localhost:8080/auth/login",
-                {
-                    method: "post",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(data)
-                }
-            ).then(response => {
-                if (response.status === 200)
-                    return response.text()
-
-                throw response.text()
-            })
-                .then(token => {
-                    sessionStorage.setItem("token", token)
-                    location.href = "index.html"
-                })
-                .catch(error => {
-                    alert("Invalid Credentials!")
-
-                })
-        })
-
-    </script>
-
-
+    <script src="assets/scripts/api.js"></script>
+    <script src="assets/scripts/home.js"></script>
 </body>
 
 </html>

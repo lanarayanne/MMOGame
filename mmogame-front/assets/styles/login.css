@@ -1,0 +1,44 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 160px); /* Desconta altura da nav e footer */
+}
+
+.login-box {
+    background: var(--white);
+    padding: 2.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    width: 100%;
+    max-width: 400px;
+    border-top: 5px solid var(--primary-green); /* Detalhe em verde no topo */
+    text-align: center;
+}
+
+.login-box h2 {
+    margin-bottom: 1.5rem;
+    font-weight: 800;
+}
+
+
+
+#form-login input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    outline: none;
+}
+
+#form-login input:focus {
+    border-color: var(--primary-green);
+}
+
+#form-login {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* O botão já herda estilos globais se você adicionar a classe .btn-primary */

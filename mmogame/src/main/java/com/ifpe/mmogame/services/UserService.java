@@ -1,5 +1,6 @@
 package com.ifpe.mmogame.services;
 
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -8,6 +9,7 @@ import com.ifpe.mmogame.dto.NewPasswordDTO;
 import com.ifpe.mmogame.entities.User;
 import com.ifpe.mmogame.repositories.UserRepository;
 import com.ifpe.mmogame.security.JwtUtils;
+import com.ifpe.mmogame.dto.UserDTO;
 
 @Component
 public class UserService {
@@ -28,7 +30,7 @@ public class UserService {
         if (userOpt.isPresent()) {
             User u = userOpt.get();
             UserDTO dto = new UserDTO();
-            dto.setId(u.getId());
+            // dto.setId(u.getId());
             dto.setEmail(u.getEmail());
             return ResponseEntity.ok(dto);
         }

@@ -1,0 +1,119 @@
+/* Layout Principal - Grid simples */
+.app-layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 20px;
+    max-width: 1100px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+/* Sidebar Esquerda */
+.sidebar-left {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    height: fit-content;
+}
+
+/* --- SOLUÇÃO PARA A FOTO GIGANTE --- */
+.side-photo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover; /* Faz a foto preencher o círculo sem esticar */
+    border: 3px solid #007bff;
+    flex-shrink: 0; /* Impede que o flexbox esmague a foto */
+}
+
+.mini-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+}
+/* ----------------------------------- */
+
+.user-card-sidebar {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.side-info strong { display: block; color: #333; font-size: 1.1rem; }
+.side-info span { color: #777; font-size: 0.9rem; }
+
+.side-nav { display: flex; flex-direction: column; gap: 8px; }
+.side-nav a {
+    text-decoration: none;
+    color: #444;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+.side-nav a:hover { background: #f0f7ff; color: #007bff; }
+
+/* Pesquisa */
+.search-container { margin: 15px 0; position: relative; }
+#search-input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+/* Feed Central */
+.feed-main {
+    max-width: 700px;
+}
+
+.post-creator {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.creator-input { flex-grow: 1; }
+.creator-input textarea {
+    width: 100%;
+    height: 80px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    resize: none;
+    margin-bottom: 10px;
+}
+
+.post-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.side-footer {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.btn-logout-side {
+    background: #fff0f0;
+    color: #ff4d4d;
+    border: 1px solid #ffcccc;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+

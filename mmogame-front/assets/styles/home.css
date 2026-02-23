@@ -1,250 +1,146 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Inter", sans-serif;
+.character-section {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-body {
-    background: #0d0f14;
-    color: #fff;
-}
-
-/* Navbar */
-
-.navbar {
+.section-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 60px;
-    border-bottom: 1px solid #1d1f27;
+    margin-bottom: 30px;
 }
 
-.logo {
-    font-size: 28px;
-    font-weight: 800;
-    letter-spacing: -1px;
-}
-
-.nav-links a {
-    margin-left: 30px;
-    text-decoration: none;
-    color: #aaa;
-    font-size: 14px;
-}
-
-.nav-links a:hover {
-    color: #fff;
-}
-
-/* Hero */
-
-.hero {
-    text-align: center;
-    padding: 120px 20px 80px;
-}
-
-.hero h1 {
-    font-size: 64px;
-    font-weight: 800;
-    line-height: 1.1;
-    max-width: 900px;
-    margin: auto;
-}
-
-.hero p {
-    color: #aaa;
-    margin-top: 20px;
-    font-size: 18px;
-}
-
-.hero button {
-    margin-top: 40px;
-    padding: 14px 28px;
-    border: none;
-    background: #fff;
-    color: #000;
-    font-weight: 600;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.hero button:hover {
-    opacity: 0.85;
-}
-
-/* Market Cards */
-
-.section {
-    padding: 80px 60px;
-}
-
-.section h2 {
-    font-size: 32px;
-    margin-bottom: 40px;
-}
-
-.market-grid {
+.character-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 25px;
 }
 
-.card {
-    background: #141720;
-    border: 1px solid #1f2230;
-    padding: 20px;
-    border-radius: 14px;
-    transition: 0.2s;
-}
-
-.card:hover {
-    border-color: #2e3345;
-    transform: translateY(-4px);
-}
-
-.card h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-
-.price {
-    font-size: 26px;
-    font-weight: 700;
-}
-
-.up { color: #22c55e; }
-.down { color: #ef4444; }
-footer {
-    text-align: center;
-    padding: 40px;
-    border-top: 1px solid #1d1f27;
-    color: #777;
-    font-size: 14px;
-}
-
-@media (max-width: 768px) {
-    .navbar {
-        padding: 20px;
-    }
-    .section {
-        padding: 60px 20px;
-    }
-    .hero h1 {
-        font-size: 42px;
-    }
-}
-
-/* Botão abrir modal */
-
-.login-btn {
-    padding: 10px 20px;
+.character-card {
     background: #fff;
-    color: #000;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
     cursor: pointer;
 }
 
-/* Fundo modal */
+.character-card:hover {
+    transform: translateY(-5px);
+}
 
+.character-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: #eee;
+    margin: 0 auto 15px;
+    object-fit: cover;
+    border: 3px solid #007bff;
+}
+
+.character-card h3 {
+    margin: 10px 0 5px;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.character-card span {
+    color: #777;
+    font-size: 0.9rem;
+}
+
+/* Fundo do Modal */
 .modal {
-    display: none;
+    display: none; 
     position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.7);
-    backdrop-filter: blur(6px);
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
     justify-content: center;
     align-items: center;
-    animation: fadeIn 0.25s ease;
 }
 
-/* Conteúdo */
-
+/* Caixa de Conteúdo */
 .modal-content {
-    background: #141720;
-    border: 1px solid #1f2230;
-    border-radius: 16px;
-    padding: 40px;
-    width: 100%;
-    max-width: 380px;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     position: relative;
-    animation: slideUp 0.25s ease;
+    animation: slideIn 0.3s ease-out;
 }
 
-.modal-content h2 {
-    margin-bottom: 20px;
-    font-size: 24px;
+@keyframes slideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
-.modal-content input {
-    width: 100%;
-    padding: 14px;
-    margin-bottom: 14px;
-    border-radius: 8px;
-    border: 1px solid #2a2d3a;
-    background: #0d0f14;
-    color: #fff;
-    font-size: 14px;
-}
-
-.modal-content input:focus {
-    outline: none;
-    border-color: #555;
-}
-
-.modal-content button {
-    width: 100%;
-    padding: 14px;
-    background: #fff;
-    color: #000;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
+.close-modal {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #888;
     cursor: pointer;
 }
 
-.modal-content button:hover {
-    opacity: 0.85;
-}
+.close-modal:hover { color: #ff4d4d; }
 
-.signup {
-    margin-top: 16px;
-    font-size: 13px;
-    color: #aaa;
+.modal-content h2 {
+    margin-bottom: 25px;
+    color: #333;
+    font-weight: 800;
     text-align: center;
 }
 
-.signup a {
-    color: #fff;
-    text-decoration: none;
+/* Formulário */
+.input-group {
+    margin-bottom: 20px;
 }
 
-/* Fechar */
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+}
 
-.close {
-    position: absolute;
-    top: 12px;
-    right: 16px;
-    font-size: 22px;
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 14px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 800;
     cursor: pointer;
-    color: #aaa;
+    transition: background 0.3s;
+    margin-top: 10px;
 }
 
-.close:hover {
-    color: #fff;
-}
-
-/* Animações */
-
-@keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
-}
-
-@keyframes slideUp {
-    from {transform: translateY(20px); opacity: 0;}
-    to {transform: translateY(0); opacity: 1;}
-}
+.btn-submit:hover { background-color: #0056b3; }

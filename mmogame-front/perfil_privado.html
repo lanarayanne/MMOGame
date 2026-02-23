@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>MMO Game - Meu Perfil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/styles/index.css">
+    <link rel="stylesheet" href="assets/styles/perfil.css">
+</head>
+<body onload="initPrivateProfile()">
+
+    <nav class="navbar">
+        <div class="logo" onclick="location.href='home.html'" style="cursor:pointer">MMO Game</div>
+        <div class="nav-links">
+            <a href="home.html">Trocar Personagem</a>
+            <button onclick="logout()" class="btn-logout">Sair</button>
+        </div>
+    </nav>
+
+    <main class="profile-container">
+        <section class="profile-header">
+            <img src="assets/img/default-avatar.png" id="my-photo" class="profile-pic">
+            <h1 id="my-name">Nome do Personagem</h1>
+            <span id="my-unique">@unique_name</span>
+            
+            <div class="profile-stats">
+                <div><strong id="count-seguidores">0</strong> Seguidores</div>
+                <div><strong id="count-seguindo">0</strong> Seguindo</div>
+            </div>
+
+            <div class="profile-actions">
+                <button class="btn-primary" onclick="alert('Funcionalidade de edição em breve!')">Editar Perfil</button>
+            </div>
+        </section>
+
+        <section class="post-creator">
+            <textarea id="post-text" placeholder="Escreva algo para seus seguidores..."></textarea>
+            <button onclick="createMyPost()" class="btn-primary">Publicar</button>
+        </section>
+
+        <section class="profile-posts">
+            <h2>Minhas Publicações</h2>
+            <div id="my-posts" class="timeline">
+                <p>Carregando seus posts...</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="assets/scripts/api.js"></script>
+    <script src="assets/scripts/perfil_privado.js"></script>
+</body>
+</html>

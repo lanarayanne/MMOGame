@@ -49,7 +49,7 @@ public class CharacterService {
 
             c = this.characterRepo.save(c);
 
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok(c);
         } catch (Exception e) {
             return ResponseEntity.internalServerError().build();
         }
@@ -66,6 +66,7 @@ public class CharacterService {
             List<CharacterDTO> dtoList = characters.stream()
                     .map(c -> {
                         CharacterDTO dto = new CharacterDTO();
+                        dto.setId(c.getId());
                         dto.setGameId(c.getGame().getId());
                         dto.setName(c.getName());
                         dto.setUniqueName(c.getUniqueName());
@@ -92,6 +93,7 @@ public class CharacterService {
                     .filter(item -> item.getId() != characterId)
                     .map(c -> {
                         CharacterDTO dto = new CharacterDTO();
+                        dto.setId(c.getId());
                         dto.setGameId(c.getGame().getId());
                         dto.setName(c.getName());
                         dto.setUniqueName(c.getUniqueName());
