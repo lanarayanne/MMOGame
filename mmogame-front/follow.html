@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>MMO Game - Seguidores</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/styles/index.css">
+    <link rel="stylesheet" href="assets/styles/follow.css">
+</head>
+
+<body onload="initFollowPage()">
+
+    <nav class="navbar">
+        <div class="logo" onclick="location.href='home.html'" style="cursor:pointer">
+            MMO Game
+        </div>
+
+        <div class="nav-links">
+            <a href="feed.html">Início</a>
+            <a href="home.html">Meus Personagens</a>
+            <button onclick="logout()" class="btn-logout">Sair</button>
+        </div>
+    </nav>
+
+    <main class="follow-container">
+        <div class="follow-header">
+            <h1 id="page-title">Carregando...</h1>
+        </div>
+
+        <div id="follow-list" class="follow-grid">
+            <p>Carregando...</p>
+        </div>
+    </main>
+
+    <script src="assets/scripts/api.js"></script>
+    <script src="assets/scripts/follow.js"></script>
+</body>
+
+</html>

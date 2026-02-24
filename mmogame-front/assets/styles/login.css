@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: calc(100vh - 160px); /* Desconta altura da nav e footer */
+    min-height: calc(100vh - 160px);
 }
 
 .login-box {
@@ -12,7 +12,7 @@
     box-shadow: var(--shadow);
     width: 100%;
     max-width: 400px;
-    border-top: 5px solid var(--primary-green); /* Detalhe em verde no topo */
+    border-top: 5px solid var(--primary-green);
     text-align: center;
 }
 
@@ -40,5 +40,3 @@
     text-align: center;
     margin-bottom: 10px;
 }
-
-/* O botão já herda estilos globais se você adicionar a classe .btn-primary */

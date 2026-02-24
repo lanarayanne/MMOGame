@@ -13,9 +13,12 @@
 <body onload="initHome()">
 
     <nav class="navbar">
-        <div class="logo">MMO Game</div>
-        <div class="nav-user">
-            <span id="display-user-name">Carregando...</span>
+        <div class="logo" onclick="location.href='home.html'" style="cursor:pointer">
+            MMO Game
+        </div>
+
+        <div class="nav-links">
+            <a href="home.html">Meus Personagens</a>
             <button onclick="logout()" class="btn-logout">Sair</button>
         </div>
     </nav>

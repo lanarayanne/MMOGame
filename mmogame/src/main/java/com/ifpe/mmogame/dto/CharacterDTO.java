@@ -3,9 +3,18 @@ package com.ifpe.mmogame.dto;
 public class CharacterDTO {
     private int id;
     private Integer gameId;
+    private String gameName;
     private String name;
     private String uniqueName;
     private int photoId;
+
+    public String getGameName() {
+        return gameName;
+    }
+
+    public void setGameName(String gameName) {
+        this.gameName = gameName;
+    }
 
     public int getId() {
         return id;

@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.ifpe.mmogame.dto.NewLikeDTO;
 import com.ifpe.mmogame.services.LikeService;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +32,11 @@ public class LikeController {
     @GetMapping("/personagem/{characterId}")
     public ResponseEntity<?> getLikeByCharacter(@PathVariable int characterId) {
         return this.likeS.showLikesByCharacter(characterId);
+    }
+
+    @DeleteMapping("/{likeId}")
+    public ResponseEntity<?> deleteLike(@PathVariable int likeId) {
+        return this.likeS.delete(likeId);
     }
 
 }

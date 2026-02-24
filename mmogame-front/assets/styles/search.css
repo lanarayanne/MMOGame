@@ -1,0 +1,116 @@
+.search-section {
+    padding: 40px 20px 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.search-card {
+    background: var(--white);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    margin-bottom: 30px;
+}
+
+#form-search-game {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.input-group input {
+    padding: 12px;
+    border: 2px solid #eee;
+    border-radius: var(--border-radius);
+    font-family: 'Inter', sans-serif;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+}
+
+.input-group input:focus {
+    border-color: var(--primary-green);
+    box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.15);
+}
+
+.character-section {
+    padding: 20px;
+    max-width: 1100px;
+    margin: 0 auto 40px;
+}
+
+.section-header h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.character-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.character-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.character-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+.character-photo {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 15px;
+    border: 3px solid var(--primary-green);
+    background: #f0f0f0;
+}
+
+.character-card h3 {
+    margin: 10px 0 5px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.character-card span {
+    display: block;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+}
+
+.character-card p {
+    font-size: 0.85rem;
+    color: var(--primary-green);
+    font-weight: 600;
+}
+
+.character-grid p {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--text-muted);
+    padding: 40px 0;
+}

@@ -1,0 +1,51 @@
+.follow-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.follow-header h1 {
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+    font-weight: 800;
+}
+
+.follow-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.follow-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: var(--white);
+    padding: 15px 20px;
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.follow-card:hover {
+    transform: translateY(-3px);
+}
+
+.follow-photo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--primary-green);
+}
+
+.follow-card h3 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.follow-card span {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}

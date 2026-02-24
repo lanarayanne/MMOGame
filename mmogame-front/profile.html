@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>MMO Game - Perfil</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/styles/index.css">
+    <link rel="stylesheet" href="assets/styles/perfil.css">
+    <link rel="stylesheet" href="assets/styles/comment.css">
+</head>
+
+<body onload="initProfile()">
+
+    <nav class="navbar">
+        <div class="logo" onclick="location.href='home.html'" style="cursor:pointer">
+            MMO Game
+        </div>
+
+        <div class="nav-links">
+            <a href="feed.html">Início</a>
+            <a href="home.html">Meus Personagens</a>
+            <button onclick="logout()" class="btn-logout">Sair</button>
+        </div>
+    </nav>
+
+    <main class="profile-container">
+
+        <!-- HEADER DO PERFIL -->
+        <section class="profile-header">
+            <div class="profile-main-info">
+                <img src="assets/img/default-avatar.png" id="profile-photo" class="profile-pic">
+
+                <div class="info-text">
+                    <h1 id="profile-name">Nome do Personagem</h1>
+                    <span id="profile-unique">@unique_name</span>
+                </div>
+            </div>
+
+            <div class="profile-stats">
+                <div id="followers-link">
+                    <strong id="count-seguidores">0</strong> Seguidores
+                </div>
+
+                <div id="following-link">
+                    <strong id="count-seguindo">0</strong> Seguindo
+                </div>
+            </div>
+
+            <div class="profile-actions">
+                <button id="profile-action-btn" class="btn-primary"></button>
+            </div>
+
+        </section>
+
+        <div class="post-creator">
+            <div class="creator-input">
+                <textarea id="post-text" placeholder="O que está acontecendo no seu servidor?"></textarea>
+                <div class="creator-actions">
+                    <button onclick="createPost()" class="btn-primary">Postar</button>
+                </div>
+            </div>
+        </div>
+
+        <section class="profile-posts">
+            <h2>Publicações</h2>
+
+            <div id="profile-posts" class="timeline">
+                <p>Carregando postagens...</p>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="assets/scripts/api.js"></script>
+    <script src="assets/scripts/components.js"></script>
+    <script src="assets/scripts/like.js"></script>
+    <script src="assets/scripts/comment.js"></script>
+    <script src="assets/scripts/profile.js"></script>
+
+</body>
+
+</html>

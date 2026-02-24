@@ -64,4 +64,9 @@ public class CharacterController {
         return this.characterS.getPerfil(characterId);
     }
 
+    @GetMapping("/jogo/{gameId}")
+    public ResponseEntity<?> getCharactersByGameId(@PathVariable int gameId) {
+        return this.characterS.showCharactersByGameId(gameId);
+    }
+
 }

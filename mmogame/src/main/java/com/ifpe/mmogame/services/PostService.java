@@ -1,6 +1,7 @@
 package com.ifpe.mmogame.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,9 +9,11 @@ import org.springframework.stereotype.Component;
 import com.ifpe.mmogame.dto.NewPostDTO;
 import com.ifpe.mmogame.dto.PostDTO;
 import com.ifpe.mmogame.entities.Post;
+import com.ifpe.mmogame.entities.Photo;
 import com.ifpe.mmogame.entities.User;
 import com.ifpe.mmogame.entities.Character;
 import com.ifpe.mmogame.repositories.CharacterRepository;
+import com.ifpe.mmogame.repositories.PhotoRepository;
 import com.ifpe.mmogame.repositories.PostRepository;
 import com.ifpe.mmogame.repositories.UserRepository;
 import com.ifpe.mmogame.security.JwtUtils;
@@ -25,6 +28,8 @@ public class PostService {
     private CharacterRepository characterRepo;
     @Autowired
     private UserRepository userRepo;
+    @Autowired
+    private PhotoRepository photoRepo;
 
     public ResponseEntity<?> save(NewPostDTO pDto) {
 
@@ -51,7 +56,19 @@ public class PostService {
             dto.setId(post.getId());
             dto.setDate(post.getDate());
             dto.setText(post.getText());
-            dto.setCharacterId(post.getCharacter().getId());
+            Character author = post.getCharacter();
+
+            dto.setCharacterId(author.getId());
+            dto.setName(author.getName());
+            dto.setUniqueName(author.getUniqueName());
+
+            Optional<Photo> optPhoto = this.photoRepo.findByCharacterId(author.getId());
+
+            if (optPhoto.isPresent()) {
+                dto.setPhotoContent(optPhoto.get().getContent());
+                dto.setPhotoExtension(optPhoto.get().getExtension());
+            }
+
             return dto;
         }).toList();
 
@@ -59,13 +76,26 @@ public class PostService {
     }
 
     public ResponseEntity<?> getPosts(int characterId) {
-        List<Post> posts = this.postRepo.findByCharacterId(characterId);
+        List<Post> posts = this.postRepo.findByCharacterIdOrderByDateDesc(characterId);
+        // Character c = this.characterRepo.findById(characterId).get();
+
         List<PostDTO> dtos = posts.stream().map(post -> {
             PostDTO dto = new PostDTO();
             dto.setId(post.getId());
             dto.setDate(post.getDate());
             dto.setText(post.getText());
-            dto.setCharacterId(post.getCharacter().getId());
+            Character author = post.getCharacter();
+
+            dto.setCharacterId(author.getId());
+            dto.setName(author.getName());
+            dto.setUniqueName(author.getUniqueName());
+
+            Optional<Photo> optPhoto = this.photoRepo.findByCharacterId(author.getId());
+
+            if (optPhoto.isPresent()) {
+                dto.setPhotoContent(optPhoto.get().getContent());
+                dto.setPhotoExtension(optPhoto.get().getExtension());
+            }
             return dto;
         }).toList();
 

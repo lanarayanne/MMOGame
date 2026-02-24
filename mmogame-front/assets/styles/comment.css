@@ -1,0 +1,49 @@
+.comments-section {
+    margin-top: 15px;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+}
+
+.comment-item {
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.comment-item span {
+    font-size: 0.8rem;
+    color: #777;
+    margin-left: 5px;
+}
+
+.comment-form {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.comment-form input {
+    flex: 1;
+    padding: 6px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.comment-item {
+    display: flex; 
+    gap: 15px;
+    align-items: flex-start; 
+    padding: 20px;
+
+}
+
+#btn-comment {
+    background-color: var(--primary-green);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.1s, background 0.3s;
+    
+}

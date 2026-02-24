@@ -8,9 +8,18 @@ import org.springframework.data.repository.query.Param;
 import com.ifpe.mmogame.entities.Post;
 
 public interface PostRepository extends JpaRepository<Post, Integer> {
-    List<Post> findByCharacterId(int characterId);
+    List<Post> findByCharacterIdOrderByDateDesc(int characterId);
 
-    @Query("SELECT p FROM Post p WHERE p.character.id <> :characterId")
+    // @Query("SELECT p FROM Post p WHERE p.character.id <> :characterId ORDER BY
+    // p.date DESC")
+    @Query("""
+                SELECT p FROM Post p
+                WHERE p.character.id IN (
+                    SELECT f.following.id FROM Follow f
+                    WHERE f.follower.id = :characterId
+                )
+                ORDER BY p.date DESC
+            """)
     List<Post> findOtherCharactersPosts(@Param("characterId") int characterId);
 
 }

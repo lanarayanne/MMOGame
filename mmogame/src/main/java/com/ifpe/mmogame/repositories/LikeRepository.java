@@ -9,4 +9,6 @@ public interface LikeRepository extends JpaRepository<Like, Integer> {
 
     public List<Like> findByCharacterId(int characterId);
 
+    boolean existsByPostIdAndCharacterId(int postId, int characterId);
+
 }

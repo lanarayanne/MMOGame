@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MMO Game - Buscar Personagens</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/styles/index.css">
+    <link rel="stylesheet" href="assets/styles/search.css">
+</head>
+
+<body onload="initSearch()">
+
+    <nav class="navbar">
+        <div class="logo" onclick="location.href='home.html'" style="cursor:pointer">
+            MMO Game
+        </div>
+
+        <div class="nav-links">
+            <a href="feed.html">Início</a>
+            <a href="home.html">Meus Personagens</a>
+            <button onclick="logout()" class="btn-logout">Sair</button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="search-section">
+            <div class="section-header">
+                <h1>Explorar Personagens por Jogo</h1>
+            </div>
+
+            <div class="search-card">
+                <form id="form-search-game">
+                    <div class="input-group">
+                        <label>Qual jogo você deseja explorar?</label>
+                        <input type="text" id="game-search" list="game-options"
+                            placeholder="Digite para buscar um jogo..." required>
+                        <datalist id="game-options"></datalist>
+                        <input type="hidden" name="gameId" id="selected-game-id">
+                    </div>
+
+                    <button type="submit" class="btn-primary">Buscar Personagens</button>
+                </form>
+            </div>
+        </section>
+
+        <section class="character-section">
+            <div class="section-header">
+                <h2>Resultados</h2>
+            </div>
+
+            <div id="character-grid" class="character-grid">
+                <p>Selecione um jogo acima para visualizar os heróis...</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="assets/scripts/api.js"></script>
+    <script src="assets/scripts/search.js"></script>
+</body>
+
+</html>

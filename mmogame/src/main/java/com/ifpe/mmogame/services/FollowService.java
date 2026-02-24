@@ -1,6 +1,7 @@
 package com.ifpe.mmogame.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,8 +11,10 @@ import com.ifpe.mmogame.dto.NewFollowDTO;
 import com.ifpe.mmogame.entities.User;
 import com.ifpe.mmogame.entities.Character;
 import com.ifpe.mmogame.entities.Follow;
+import com.ifpe.mmogame.entities.Photo;
 import com.ifpe.mmogame.repositories.CharacterRepository;
 import com.ifpe.mmogame.repositories.FollowRepository;
+import com.ifpe.mmogame.repositories.PhotoRepository;
 import com.ifpe.mmogame.repositories.UserRepository;
 import com.ifpe.mmogame.security.JwtUtils;
 
@@ -25,6 +28,8 @@ public class FollowService {
     private UserRepository userRepo;
     @Autowired
     private FollowRepository followRepo;
+    @Autowired
+    private PhotoRepository photoRepo;
 
     public ResponseEntity<?> save(NewFollowDTO fDto) {
         User u = this.userRepo.findByEmail(this.jwtUtils.getAuthorizedId()).get();
@@ -41,31 +46,49 @@ public class FollowService {
     }
 
     public ResponseEntity<?> showFollowers(int characterId) {
-        List<Character> followers = this.followRepo.findFollowersByCharacterId(characterId);
-        List<CharacterDTO> dtos = followers.stream().map(follower -> {
-            CharacterDTO dto = new CharacterDTO();
-            dto.setGameId(follower.getGame().getId());
-            dto.setName(follower.getName());
-            // dto.setPhotoId(follower.getPhotoId());
-            dto.setUniqueName(follower.getUniqueName());
-            return dto;
-        }).toList();
+        try {
+            List<Character> followers = this.followRepo.findFollowersByCharacterId(characterId);
+            List<CharacterDTO> dtos = followers.stream().map(follower -> {
+                CharacterDTO dto = new CharacterDTO();
+                Optional<Photo> opt = this.photoRepo.findByCharacterId(follower.getId());
+                dto.setId(follower.getId());
+                dto.setGameId(follower.getGame().getId());
+                dto.setName(follower.getName());
+                if (opt.isPresent()){
+                    Photo p = opt.get();
+                    dto.setPhotoId(p.getId());
+                }
+                dto.setUniqueName(follower.getUniqueName());
+                return dto;
+            }).toList();
 
-        return ResponseEntity.ok(dtos);
+            return ResponseEntity.ok(dtos);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     public ResponseEntity<?> showFollowings(int characterId) {
-        List<Character> followings = this.followRepo.findFollowingsByCharacterId(characterId);
-        List<CharacterDTO> dtos = followings.stream().map(following -> {
-            CharacterDTO dto = new CharacterDTO();
-            dto.setGameId(following.getGame().getId());
-            dto.setName(following.getName());
-            // dto.setPhotoId(following.getPhotoId());
-            dto.setUniqueName(following.getUniqueName());
-            return dto;
-        }).toList();
+        try {
+            List<Character> followings = this.followRepo.findFollowingsByCharacterId(characterId);
+            List<CharacterDTO> dtos = followings.stream().map(following -> {
+                CharacterDTO dto = new CharacterDTO();
+                Optional<Photo> opt = this.photoRepo.findByCharacterId(following.getId());
+                dto.setId(following.getId());
+                dto.setGameId(following.getGame().getId());
+                dto.setName(following.getName());
+                if (opt.isPresent()){
+                    Photo p = opt.get();
+                    dto.setPhotoId(p.getId());
+                }
+                dto.setUniqueName(following.getUniqueName());
+                return dto;
+            }).toList();
 
-        return ResponseEntity.ok(dtos);
+            return ResponseEntity.ok(dtos);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
 }

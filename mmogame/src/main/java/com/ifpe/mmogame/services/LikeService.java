@@ -35,6 +35,10 @@ public class LikeService {
         Character c = this.characterRepo.findByIdAndUserId(lDto.getCharacterId(), u.getId()).get();
         Post p = this.postRepo.findById(lDto.getPostId()).get();
 
+        if (likeRepo.existsByPostIdAndCharacterId(p.getId(), c.getId())) {
+            return ResponseEntity.badRequest().build();
+        }
+
         Like l = new Like();
         l.setCharacter(c);
         l.setPost(p);
@@ -72,6 +76,15 @@ public class LikeService {
         }).toList();
 
         return ResponseEntity.ok(dtos);
+    }
+
+    public ResponseEntity<?> delete(int likeId) {
+        if (!likeRepo.existsById(likeId)) {
+            return ResponseEntity.notFound().build();
+        }
+
+        likeRepo.deleteById(likeId);
+        return ResponseEntity.ok().build();
     }
 
 }

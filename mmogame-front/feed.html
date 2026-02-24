@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <title>MMO Game - Feed</title>
@@ -7,11 +8,15 @@
     <link rel="stylesheet" href="assets/styles/index.css">
     <link rel="stylesheet" href="assets/styles/feed.css">
 </head>
+
 <body onload="initFeed()">
     <nav class="navbar">
-        <div class="logo">MMO Game</div>
-        <div class="nav-user">
-            <span id="display-user-name">Carregando...</span>
+        <div class="logo" onclick="location.href='home.html'" style="cursor:pointer">
+            MMO Game
+        </div>
+
+        <div class="nav-links">
+            <a href="home.html">Meus Personagens</a>
             <button onclick="logout()" class="btn-logout">Sair</button>
         </div>
     </nav>
@@ -30,14 +35,13 @@
                 <nav class="side-nav">
                     <a href="feed.html" class="active">🏠 Início</a>
                     <a href="#" onclick="goToMyProfile()">👤 Meu Perfil</a>
-                    <div class="search-container">
-                        <input type="text" id="search-input" placeholder="🔍 Pesquisar jogadores...">
-                        <div id="search-results" class="search-results-dropdown"></div>
-                    </div>
+                    <a href="buscar_personagem.html">🔍 Buscar Personagem</a>
+
                 </nav>
 
                 <div class="side-footer">
-                    <button onclick="location.href='home.html'" class="btn-outline">🔄 Trocar Personagem</button>
+                    <button onclick="location.href='home.html'" class="btn-outline" id="change-character">🔄 Trocar
+                        Personagem</button>
                     <button onclick="logout()" class="btn-logout-side">🚪 Sair</button>
                 </div>
             </div>
@@ -46,9 +50,6 @@
         <main class="feed-main">
 
             <div class="post-creator">
-                <div class="creator-avatar">
-                    <img src="assets/img/default-avatar.png" class="mini-avatar" id="creator-photo">
-                </div>
                 <div class="creator-input">
                     <textarea id="post-text" placeholder="O que está acontecendo no seu servidor?"></textarea>
                     <div class="creator-actions">
@@ -64,6 +65,9 @@
     </div>
 
     <script src="assets/scripts/api.js"></script>
+    <script src="assets/scripts/components.js"></script>
+    <script src="assets/scripts/like.js"></script>
     <script src="assets/scripts/feed.js"></script>
 </body>
+
 </html>
