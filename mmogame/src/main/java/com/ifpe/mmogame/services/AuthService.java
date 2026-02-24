@@ -23,32 +23,40 @@ public class AuthService {
 
     public ResponseEntity<?> newUser(UserDTO user) {
 
-        User u = new User();
-        u.setEmail(user.getEmail());
-        u.setPassword(this.encoder.encode(user.getPassword()));
+        try {
+            User u = new User();
+            u.setEmail(user.getEmail());
+            u.setPassword(this.encoder.encode(user.getPassword()));
 
-        this.userRepo.save(u);
+            this.userRepo.save(u);
 
-        return ResponseEntity.ok("Success!");
+            return ResponseEntity.ok("Success!");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
 
     }
 
     public ResponseEntity<?> login(LoginDTO login) {
 
-        Optional<User> userOpt = this.userRepo.findByEmail(login.getEmail());
+        try {
+            Optional<User> userOpt = this.userRepo.findByEmail(login.getEmail());
 
-        if (userOpt.isPresent()) {
+            if (userOpt.isPresent()) {
 
-            User user = userOpt.get();
+                User user = userOpt.get();
 
-            if (this.encoder.matches(login.getPassword(), user.getPassword())) {
-                return ResponseEntity.ok(this.jwtUtils
-                        .generateToken(user.getEmail(), "USER"));
+                if (this.encoder.matches(login.getPassword(), user.getPassword())) {
+                    return ResponseEntity.ok(this.jwtUtils
+                            .generateToken(user.getEmail(), "USER"));
+                }
+
             }
 
+            return ResponseEntity.badRequest().body("Invalid Credentials");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
         }
-
-        return ResponseEntity.badRequest().body("Invalid Credentials");
 
     }
 

@@ -33,79 +33,92 @@ public class PostService {
 
     public ResponseEntity<?> save(NewPostDTO pDto) {
 
-        if (pDto.getText().isEmpty()) {
-            return ResponseEntity.badRequest().build();
+        try {
+            if (pDto.getText().isEmpty()) {
+                return ResponseEntity.badRequest().build();
+            }
+            User u = this.userRepo.findByEmail(this.jwtUtils.getAuthorizedId()).get();
+            Character c = this.characterRepo.findByIdAndUserId(pDto.getCharacterId(), u.getId()).get();
+
+            Post p = new Post();
+            p.setText(pDto.getText());
+            p.setCharacter(c);
+            p = this.postRepo.save(p);
+
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
         }
-        User u = this.userRepo.findByEmail(this.jwtUtils.getAuthorizedId()).get();
-        Character c = this.characterRepo.findByIdAndUserId(pDto.getCharacterId(), u.getId()).get();
-
-        Post p = new Post();
-        p.setText(pDto.getText());
-        p.setCharacter(c);
-        p = this.postRepo.save(p);
-
-        return ResponseEntity.ok().build();
 
     }
 
     public ResponseEntity<?> getOthersPosts(int characterId) {
-        List<Post> posts = this.postRepo.findOtherCharactersPosts(characterId);
+        try {
+            List<Post> posts = this.postRepo.findOtherCharactersPosts(characterId);
 
-        List<PostDTO> dtos = posts.stream().map(post -> {
-            PostDTO dto = new PostDTO();
-            dto.setId(post.getId());
-            dto.setDate(post.getDate());
-            dto.setText(post.getText());
-            Character author = post.getCharacter();
+            List<PostDTO> dtos = posts.stream().map(post -> {
+                PostDTO dto = new PostDTO();
+                dto.setId(post.getId());
+                dto.setDate(post.getDate());
+                dto.setText(post.getText());
+                Character author = post.getCharacter();
 
-            dto.setCharacterId(author.getId());
-            dto.setName(author.getName());
-            dto.setUniqueName(author.getUniqueName());
+                dto.setCharacterId(author.getId());
+                dto.setName(author.getName());
+                dto.setUniqueName(author.getUniqueName());
 
-            Optional<Photo> optPhoto = this.photoRepo.findByCharacterId(author.getId());
+                Optional<Photo> optPhoto = this.photoRepo.findByCharacterId(author.getId());
 
-            if (optPhoto.isPresent()) {
-                dto.setPhotoContent(optPhoto.get().getContent());
-                dto.setPhotoExtension(optPhoto.get().getExtension());
-            }
+                if (optPhoto.isPresent()) {
+                    dto.setPhotoContent(optPhoto.get().getContent());
+                    dto.setPhotoExtension(optPhoto.get().getExtension());
+                }
 
-            return dto;
-        }).toList();
+                return dto;
+            }).toList();
 
-        return ResponseEntity.ok(dtos);
+            return ResponseEntity.ok(dtos);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     public ResponseEntity<?> getPosts(int characterId) {
-        List<Post> posts = this.postRepo.findByCharacterIdOrderByDateDesc(characterId);
-        // Character c = this.characterRepo.findById(characterId).get();
+        try {
+            List<Post> posts = this.postRepo.findByCharacterIdOrderByDateDesc(characterId);
+            List<PostDTO> dtos = posts.stream().map(post -> {
+                PostDTO dto = new PostDTO();
+                dto.setId(post.getId());
+                dto.setDate(post.getDate());
+                dto.setText(post.getText());
+                Character author = post.getCharacter();
 
-        List<PostDTO> dtos = posts.stream().map(post -> {
-            PostDTO dto = new PostDTO();
-            dto.setId(post.getId());
-            dto.setDate(post.getDate());
-            dto.setText(post.getText());
-            Character author = post.getCharacter();
+                dto.setCharacterId(author.getId());
+                dto.setName(author.getName());
+                dto.setUniqueName(author.getUniqueName());
 
-            dto.setCharacterId(author.getId());
-            dto.setName(author.getName());
-            dto.setUniqueName(author.getUniqueName());
+                Optional<Photo> optPhoto = this.photoRepo.findByCharacterId(author.getId());
 
-            Optional<Photo> optPhoto = this.photoRepo.findByCharacterId(author.getId());
+                if (optPhoto.isPresent()) {
+                    dto.setPhotoContent(optPhoto.get().getContent());
+                    dto.setPhotoExtension(optPhoto.get().getExtension());
+                }
+                return dto;
+            }).toList();
 
-            if (optPhoto.isPresent()) {
-                dto.setPhotoContent(optPhoto.get().getContent());
-                dto.setPhotoExtension(optPhoto.get().getExtension());
-            }
-            return dto;
-        }).toList();
-
-        return ResponseEntity.ok(dtos);
+            return ResponseEntity.ok(dtos);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     public ResponseEntity<?> delete(int postId) {
-
-        this.postRepo.deleteById(postId);
-        return ResponseEntity.ok().build();
+        try {
+            this.postRepo.deleteById(postId);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     // public ResponseEntity<?> update(Integer postId, NewPostDTO pDto) {

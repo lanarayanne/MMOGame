@@ -23,39 +23,36 @@ public class UserService {
 
     public ResponseEntity<?> getUser() {
 
-        String email = jwtUtils.getAuthorizedId();
+        try {
+            String email = jwtUtils.getAuthorizedId();
+            Optional<User> userOpt = userRepo.findByEmail(email);
+            if (userOpt.isPresent()) {
+                User u = userOpt.get();
+                UserDTO dto = new UserDTO();
+                dto.setEmail(u.getEmail());
+                return ResponseEntity.ok(dto);
+            }
 
-        Optional<User> userOpt = userRepo.findByEmail(email);
-
-        if (userOpt.isPresent()) {
-            User u = userOpt.get();
-            UserDTO dto = new UserDTO();
-            // dto.setId(u.getId());
-            dto.setEmail(u.getEmail());
-            return ResponseEntity.ok(dto);
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
         }
-
-        // User u = userRepo.findById(Integer.parseInt(id)).get();
-        // u.setName(null);
-        // u.setEmail(null);
-        // u.setPassword(null);
-
-        return ResponseEntity.notFound().build();
 
     }
 
     public ResponseEntity<?> updatePassword(NewPasswordDTO passDto) {
-        User u = this.userRepo.findByEmail(this.jwtUtils.getAuthorizedId()).get();
+        try {
+            User u = this.userRepo.findByEmail(this.jwtUtils.getAuthorizedId()).get();
+            if (encoder.matches(passDto.getOldPassword(), u.getPassword())) {
+                u.setPassword(encoder.encode(passDto.getNewPassword()));
+                this.userRepo.save(u);
+                return ResponseEntity.ok().build();
+            }
 
-        if (encoder.matches(passDto.getOldPassword(), u.getPassword())) {
-            u.setPassword(encoder.encode(passDto.getNewPassword()));
-
-            this.userRepo.save(u);
-
-            return ResponseEntity.ok().build();
+            return ResponseEntity.badRequest().build();
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
         }
-
-        return ResponseEntity.badRequest().build();
 
     }
 

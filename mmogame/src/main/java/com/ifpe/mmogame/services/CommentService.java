@@ -36,12 +36,10 @@ public class CommentService {
     private PhotoRepository photoRepo;
 
     public ResponseEntity<?> save(NewCommentDTO cDto) {
-
         try {
             if (cDto.getText().isEmpty()) {
                 return ResponseEntity.badRequest().build();
             }
-
             User u = this.userRepo.findByEmail(this.jwtUtils.getAuthorizedId()).get();
             Character c = this.characterRepo.findByIdAndUserId(cDto.getCharacterId(), u.getId()).get();
             Post p = this.postRepo.findById(cDto.getPostId()).get();
@@ -51,7 +49,6 @@ public class CommentService {
             comment.setPost(p);
             comment.setText(cDto.getText());
             comment = this.commentRepo.save(comment);
-
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.internalServerError().build();
@@ -60,57 +57,65 @@ public class CommentService {
     }
 
     public ResponseEntity<?> getCommentsByPostId(int postId) {
-        List<CommentPost> comments = this.commentRepo.findByPostId(postId);
-        List<CommentPostDTO> dtos = comments.stream().map(comment -> {
-            CommentPostDTO dto = new CommentPostDTO();
-            dto.setDate(comment.getDate());
-            dto.setId(comment.getId());
-            dto.setPostId(postId);
-            dto.setText(comment.getText());
+        try {
+            List<CommentPost> comments = this.commentRepo.findByPostId(postId);
+            List<CommentPostDTO> dtos = comments.stream().map(comment -> {
+                CommentPostDTO dto = new CommentPostDTO();
+                dto.setDate(comment.getDate());
+                dto.setId(comment.getId());
+                dto.setPostId(postId);
+                dto.setText(comment.getText());
 
-            Character author = this.characterRepo.findById(comment.getCharacter().getId()).get();
-            dto.setCharacterId(author.getId());
-            dto.setName(author.getName());
-            dto.setUniqueName(author.getUniqueName());
-            
-            Optional<Photo> optPhoto = this.photoRepo.findByCharacterId(author.getId());
+                Character author = this.characterRepo.findById(comment.getCharacter().getId()).get();
+                dto.setCharacterId(author.getId());
+                dto.setName(author.getName());
+                dto.setUniqueName(author.getUniqueName());
 
-            if (optPhoto.isPresent()) {
-                dto.setPhotoContent(optPhoto.get().getContent());
-                dto.setPhotoExtension(optPhoto.get().getExtension());
-            }
-            return dto;
-        }).toList();
+                Optional<Photo> optPhoto = this.photoRepo.findByCharacterId(author.getId());
 
-        return ResponseEntity.ok(dtos);
+                if (optPhoto.isPresent()) {
+                    dto.setPhotoContent(optPhoto.get().getContent());
+                    dto.setPhotoExtension(optPhoto.get().getExtension());
+                }
+                return dto;
+            }).toList();
+
+            return ResponseEntity.ok(dtos);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     public ResponseEntity<?> getCommentsByCharacter(int characterId) {
-        User u = this.userRepo.findByEmail(this.jwtUtils.getAuthorizedId()).get();
-        Character c = this.characterRepo.findByIdAndUserId(characterId, u.getId()).get();
-        List<CommentPost> comments = this.commentRepo.findByCharacterId(c.getId());
-        List<CommentPostDTO> dtos = comments.stream().map(comment -> {
-            CommentPostDTO dto = new CommentPostDTO();
-            dto.setDate(comment.getDate());
-            dto.setId(comment.getId());
-            dto.setPostId(comment.getPost().getId());
-            dto.setText(comment.getText());
+        try {
+            User u = this.userRepo.findByEmail(this.jwtUtils.getAuthorizedId()).get();
+            Character c = this.characterRepo.findByIdAndUserId(characterId, u.getId()).get();
+            List<CommentPost> comments = this.commentRepo.findByCharacterId(c.getId());
+            List<CommentPostDTO> dtos = comments.stream().map(comment -> {
+                CommentPostDTO dto = new CommentPostDTO();
+                dto.setDate(comment.getDate());
+                dto.setId(comment.getId());
+                dto.setPostId(comment.getPost().getId());
+                dto.setText(comment.getText());
 
-            Character author = this.characterRepo.findById(comment.getCharacter().getId()).get();
-            dto.setCharacterId(author.getId());
-            dto.setName(author.getName());
-            dto.setUniqueName(author.getUniqueName());
-            
-            Optional<Photo> optPhoto = this.photoRepo.findByCharacterId(author.getId());
+                Character author = this.characterRepo.findById(comment.getCharacter().getId()).get();
+                dto.setCharacterId(author.getId());
+                dto.setName(author.getName());
+                dto.setUniqueName(author.getUniqueName());
 
-            if (optPhoto.isPresent()) {
-                dto.setPhotoContent(optPhoto.get().getContent());
-                dto.setPhotoExtension(optPhoto.get().getExtension());
-            }
-            return dto;
-        }).toList();
+                Optional<Photo> optPhoto = this.photoRepo.findByCharacterId(author.getId());
 
-        return ResponseEntity.ok(dtos);
+                if (optPhoto.isPresent()) {
+                    dto.setPhotoContent(optPhoto.get().getContent());
+                    dto.setPhotoExtension(optPhoto.get().getExtension());
+                }
+                return dto;
+            }).toList();
+
+            return ResponseEntity.ok(dtos);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
 }

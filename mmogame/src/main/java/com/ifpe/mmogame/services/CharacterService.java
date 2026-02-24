@@ -33,7 +33,6 @@ public class CharacterService {
     private GameRepository gameRepo;
 
     public ResponseEntity<?> save(CharacterDTO cDto) {
-
         try {
             if (cDto.getName().isEmpty() || cDto.getUniqueName().isEmpty() || cDto.getGameId() == null) {
                 return ResponseEntity.badRequest().build();
@@ -46,9 +45,7 @@ public class CharacterService {
             c.setName(cDto.getName());
             c.setUniqueName(cDto.getUniqueName());
             c.setUser(u);
-
             c = this.characterRepo.save(c);
-
             return ResponseEntity.ok(c);
         } catch (Exception e) {
             return ResponseEntity.internalServerError().build();
@@ -57,9 +54,7 @@ public class CharacterService {
     }
 
     public ResponseEntity<?> showAllCharactersByUser() {
-
         try {
-
             User u = this.userRepo.findByEmail(this.jwtUtils.getAuthorizedId()).get();
             List<Character> characters = this.characterRepo.findByUserId(u.getId());
 
@@ -84,13 +79,10 @@ public class CharacterService {
     }
 
     public ResponseEntity<?> showCharactersByGame(int characterId) {
-
         try {
-
             User u = this.userRepo.findByEmail(this.jwtUtils.getAuthorizedId()).get();
             Character character = this.characterRepo.findByIdAndUserId(characterId, u.getId()).get();
             List<Character> characters = this.characterRepo.findByGame(character.getGame());
-
             List<CharacterDTO> dtoList = characters.stream()
                     .filter(item -> item.getId() != characterId)
                     .map(c -> {
@@ -104,46 +96,39 @@ public class CharacterService {
                         return dto;
                     })
                     .toList();
-
             return ResponseEntity.ok(dtoList);
         } catch (Exception e) {
             return ResponseEntity.internalServerError().build();
         }
-
     }
 
     public ResponseEntity<?> showCharactersByGameId(int gameId) {
-    try {
-        Optional<Game> gameOpt = this.gameRepo.findById(gameId);
-        if (gameOpt.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        List<Character> characters = this.characterRepo.findByGame(gameOpt.get());
-
-        List<CharacterDTO> dtoList = characters.stream()
-                .map(c -> {
-                    CharacterDTO dto = new CharacterDTO();
-                    Game g = this.gameRepo.findById(c.getGame().getId()).get();
+        try {
+            Optional<Game> gameOpt = this.gameRepo.findById(gameId);
+            if (gameOpt.isEmpty()) {
+                return ResponseEntity.notFound().build();
+            }
+            List<Character> characters = this.characterRepo.findByGame(gameOpt.get());
+            List<CharacterDTO> dtoList = characters.stream()
+                    .map(c -> {
+                        CharacterDTO dto = new CharacterDTO();
+                        Game g = this.gameRepo.findById(c.getGame().getId()).get();
                         dto.setGameName(g.getName());
-                    dto.setId(c.getId());
-                    dto.setGameId(c.getGame().getId());
-                    dto.setName(c.getName());
-                    dto.setUniqueName(c.getUniqueName());
-                    return dto;
-                })
-                .toList();
-
-        return ResponseEntity.ok(dtoList);
-    } catch (Exception e) {
-        return ResponseEntity.internalServerError().build();
+                        dto.setId(c.getId());
+                        dto.setGameId(c.getGame().getId());
+                        dto.setName(c.getName());
+                        dto.setUniqueName(c.getUniqueName());
+                        return dto;
+                    })
+                    .toList();
+            return ResponseEntity.ok(dtoList);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
-}
 
     public ResponseEntity<?> uploadPhoto(MultipartFile file, int characterId) {
-
         Photo p = new Photo();
-
         try {
             p.setContent(file.getBytes());
             p.setExtension(file.getContentType().split("/")[1]);
@@ -158,8 +143,8 @@ public class CharacterService {
 
             return ResponseEntity.ok().build();
         } catch (IOException e) {
-
             e.printStackTrace();
+
         }
 
         return ResponseEntity.internalServerError().build();
@@ -167,21 +152,18 @@ public class CharacterService {
     }
 
     public ResponseEntity<?> getPerfil(int characterId) {
-        String userEmail = this.jwtUtils.getAuthorizedId();
-        User user = this.userRepo.findByEmail(userEmail).get();
-        // Character c = this.characterRepo.findByIdAndUserId(characterId, user.getId()).get();
-
-        Character c = this.characterRepo.findById(characterId).get();
-
-        Optional<Photo> photoOpt = this.photoRepo.findByCharacterId(c.getId());
-
-        if (photoOpt.isPresent()) {
-            Photo p = photoOpt.get();
-            p.setCharacter(c);
-            return ResponseEntity.ok(photoOpt.get());
+        try {
+            Character c = this.characterRepo.findById(characterId).get();
+            Optional<Photo> photoOpt = this.photoRepo.findByCharacterId(c.getId());
+            if (photoOpt.isPresent()) {
+                Photo p = photoOpt.get();
+                p.setCharacter(c);
+                return ResponseEntity.ok(photoOpt.get());
+            }
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
         }
-
-        return ResponseEntity.notFound().build();
     }
 
 }

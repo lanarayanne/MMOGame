@@ -32,17 +32,21 @@ public class FollowService {
     private PhotoRepository photoRepo;
 
     public ResponseEntity<?> save(NewFollowDTO fDto) {
-        User u = this.userRepo.findByEmail(this.jwtUtils.getAuthorizedId()).get();
-        Character follower = this.characterRepo.findByIdAndUserId(fDto.getFollowerId(), u.getId()).get();
-        Character following = this.characterRepo.findById(fDto.getFollowingId()).get();
+        try {
+            User u = this.userRepo.findByEmail(this.jwtUtils.getAuthorizedId()).get();
+            Character follower = this.characterRepo.findByIdAndUserId(fDto.getFollowerId(), u.getId()).get();
+            Character following = this.characterRepo.findById(fDto.getFollowingId()).get();
 
-        Follow f = new Follow();
-        f.setFollower(follower);
-        f.setFollowing(following);
+            Follow f = new Follow();
+            f.setFollower(follower);
+            f.setFollowing(following);
 
-        f = this.followRepo.save(f);
+            f = this.followRepo.save(f);
 
-        return ResponseEntity.ok().build();
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     public ResponseEntity<?> showFollowers(int characterId) {
@@ -54,7 +58,7 @@ public class FollowService {
                 dto.setId(follower.getId());
                 dto.setGameId(follower.getGame().getId());
                 dto.setName(follower.getName());
-                if (opt.isPresent()){
+                if (opt.isPresent()) {
                     Photo p = opt.get();
                     dto.setPhotoId(p.getId());
                 }
@@ -77,7 +81,7 @@ public class FollowService {
                 dto.setId(following.getId());
                 dto.setGameId(following.getGame().getId());
                 dto.setName(following.getName());
-                if (opt.isPresent()){
+                if (opt.isPresent()) {
                     Photo p = opt.get();
                     dto.setPhotoId(p.getId());
                 }
