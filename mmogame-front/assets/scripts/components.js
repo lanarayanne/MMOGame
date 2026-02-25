@@ -25,7 +25,11 @@ function createPostHTML(post, authorName, authorUnique, authorPhoto) {
                 </div>
 
                 <div class="post-actions">
-                    <button class="btn-action" id="like-btn-${post.id}" onclick="likePost(${post.id})">
+                    <button 
+                        class="btn-action" 
+                        id="like-btn-${post.id}" 
+                        onclick="likePost(${post.id})"
+                    >
                         ❤️ Curtir
                     </button>
                     <span id="like-count-${post.id}">0</span>
@@ -56,4 +60,28 @@ function createPostHTML(post, authorName, authorUnique, authorPhoto) {
             </div>
         </div>
     `;
+}
+
+function logout() {
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("characterId");
+    window.location.href = "index.html";
+}
+
+async function loadCharacterPhoto(id) {
+    
+    try {
+        const res = await getCharacterProfile(id);
+
+        if (res.ok) {
+            const photo = await res.json();
+            const imgElement = document.getElementById(`photo-${id}`);
+
+            if (imgElement && photo.content) {
+                imgElement.src = `data:image/${photo.extension};base64,${photo.content}`;
+            }
+        }
+    } catch (e) {
+        console.error("Erro ao carregar foto:", e);
+    }
 }

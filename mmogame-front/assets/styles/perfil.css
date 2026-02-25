@@ -135,3 +135,8 @@
     width: 100%;
     gap: 15px;
 }
+
+#profile-game {
+    color: var(--primary-green);
+    font-weight: 600;
+}

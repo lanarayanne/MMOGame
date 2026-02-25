@@ -4,6 +4,9 @@ public class NewLikeDTO {
     private int postId;
     private int characterId;
 
+    public NewLikeDTO() {
+    }
+
     public int getPostId() {
         return postId;
     }

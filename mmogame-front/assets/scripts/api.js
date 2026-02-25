@@ -66,15 +66,6 @@ async function searchCharactersByGame(characterId) {
     });
 }
 
-// Envia a ação de curtir um post para o servidor
-async function likeTimelinePost(postId, characterId) {
-    return await fetch(`${ENDPOINTS.TIMELINE}/${postId}/like`, {
-        method: "POST",
-        headers: getAuthHeader(),
-        body: JSON.stringify({ characterId })
-    });
-}
-
 // --- HOME ---
 
 // Busca os dados do usuário logado
@@ -144,38 +135,6 @@ async function getMyProfilePosts(characterId) {
     });
 }
 
-// -- POST -- //TODO: arrumar a variável
-
-function likePostRequest(postId, characterId) {
-    return fetch("http://localhost:8080/like/novo", {
-        method: "POST",
-        headers: getAuthHeader(),
-        body: JSON.stringify({
-            postId,
-            characterId
-        })
-    });
-}
-
-function getLikesByPost(postId) {
-    return fetch(`http://localhost:8080/like/post/${postId}`, {
-        headers: getAuthHeader()
-    });
-}
-
-function getLikesByPost(postId) {
-    return fetch(`http://localhost:8080/like/post/${postId}`, {
-        headers: getAuthHeader()
-    });
-}
-
-function unlikePostRequest(likeId) {
-    return fetch(`http://localhost:8080/like/${likeId}`, {
-        method: "DELETE",
-        headers: getAuthHeader()
-    });
-}
-
 // Buscar comentários de um post
 async function getCommentsByPost(postId) {
     return await fetch(`${ENDPOINTS.COMMENT}/post/${postId}`, {
@@ -194,4 +153,22 @@ async function createComment(postId, characterId, text) {
             text
         })
     });
+}
+
+async function followCharacter(followerId, followingId) {
+    try {
+        const res = await fetch(`${API_BASE}/personagem/seguir`, {
+            method: "POST",
+            headers: getAuthHeader(),
+            body: JSON.stringify({
+                followerId: followerId,
+                followingId: followingId
+            })
+        });
+
+        return res;
+    } catch (err) {
+        console.error("Erro ao seguir personagem:", err);
+        return { ok: false };
+    }
 }

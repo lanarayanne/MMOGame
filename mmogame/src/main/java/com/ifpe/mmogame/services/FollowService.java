@@ -54,14 +54,17 @@ public class FollowService {
             List<Character> followers = this.followRepo.findFollowersByCharacterId(characterId);
             List<CharacterDTO> dtos = followers.stream().map(follower -> {
                 CharacterDTO dto = new CharacterDTO();
-                Optional<Photo> opt = this.photoRepo.findByCharacterId(follower.getId());
                 dto.setId(follower.getId());
                 dto.setGameId(follower.getGame().getId());
                 dto.setName(follower.getName());
-                if (opt.isPresent()) {
-                    Photo p = opt.get();
-                    dto.setPhotoId(p.getId());
+
+                Optional<Photo> optPhoto = this.photoRepo.findByCharacterId(follower.getId());
+
+                if (optPhoto.isPresent()) {
+                    dto.setPhotoContent(optPhoto.get().getContent());
+                    dto.setPhotoExtension(optPhoto.get().getExtension());
                 }
+                
                 dto.setUniqueName(follower.getUniqueName());
                 return dto;
             }).toList();
@@ -77,14 +80,17 @@ public class FollowService {
             List<Character> followings = this.followRepo.findFollowingsByCharacterId(characterId);
             List<CharacterDTO> dtos = followings.stream().map(following -> {
                 CharacterDTO dto = new CharacterDTO();
-                Optional<Photo> opt = this.photoRepo.findByCharacterId(following.getId());
                 dto.setId(following.getId());
                 dto.setGameId(following.getGame().getId());
                 dto.setName(following.getName());
-                if (opt.isPresent()) {
-                    Photo p = opt.get();
-                    dto.setPhotoId(p.getId());
+
+                Optional<Photo> optPhoto = this.photoRepo.findByCharacterId(following.getId());
+
+                if (optPhoto.isPresent()) {
+                    dto.setPhotoContent(optPhoto.get().getContent());
+                    dto.setPhotoExtension(optPhoto.get().getExtension());
                 }
+
                 dto.setUniqueName(following.getUniqueName());
                 return dto;
             }).toList();

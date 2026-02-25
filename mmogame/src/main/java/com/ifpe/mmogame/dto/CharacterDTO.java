@@ -8,6 +8,26 @@ public class CharacterDTO {
     private String uniqueName;
     private int photoId;
 
+    private byte[] photoContent; 
+    private String photoExtension;
+    
+
+    public byte[] getPhotoContent() {
+        return photoContent;
+    }
+
+    public void setPhotoContent(byte[] photoContent) {
+        this.photoContent = photoContent;
+    }
+
+    public String getPhotoExtension() {
+        return photoExtension;
+    }
+
+    public void setPhotoExtension(String photoExtension) {
+        this.photoExtension = photoExtension;
+    }
+
     public String getGameName() {
         return gameName;
     }

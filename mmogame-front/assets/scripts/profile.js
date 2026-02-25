@@ -37,6 +37,7 @@ async function loadProfileData() {
             const data = await res.json();
 
             document.getElementById("profile-name").innerText = data.character.name;
+            document.getElementById("profile-game").innerText = data.character.game.title;
             document.getElementById("profile-unique").innerText =
                 `@${data.character.uniqueName}`;
 
@@ -108,7 +109,7 @@ async function loadProfilePosts() {
 
                 const authorPhoto = post.photoContent
                     ? `data:image/${post.photoExtension};base64,${post.photoContent}`
-                    : "assets/img/default-avatar.png";
+                    : "assets/img/default-avatar.jpg";
 
                 return createPostHTML(
                     post,
@@ -187,5 +188,8 @@ async function createPost() {
         await loadProfilePosts();
     }
 }
+
+
+
 
 window.createPost = createPost;

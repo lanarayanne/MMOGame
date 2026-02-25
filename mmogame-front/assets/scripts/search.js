@@ -54,16 +54,16 @@ async function loadGames() {
     }
 }
 
-function setupGameSelection(games) {
-    const input = document.getElementById("game-search");
-    const hiddenInput = document.getElementById("selected-game-id");
+// function setupGameSelection(games) {
+//     const input = document.getElementById("game-search");
+//     const hiddenInput = document.getElementById("selected-game-id");
 
-    input.addEventListener("input", function () {
-        const selected = games.find(g => g.name === input.value);
+//     input.addEventListener("input", function () {
+//         const selected = games.find(g => g.name === input.value);
 
-        hiddenInput.value = selected ? selected.id : "";
-    });
-}
+//         hiddenInput.value = selected ? selected.id : "";
+//     });
+// }
 
 
 let cachedGames = [];
@@ -126,7 +126,7 @@ function renderCharacters(characters) {
         };
 
         card.innerHTML = `
-            <img src="assets/img/default-avatar.png" 
+            <img src="assets/img/default-avatar.jpg" 
                 class="character-photo" 
                 id="photo-${c.id}">
             <h3>${c.name}</h3>
@@ -136,13 +136,7 @@ function renderCharacters(characters) {
 
         grid.appendChild(card);
 
-        loadCharacterPhotoSearch(c.id);
+        loadCharacterPhoto(c.id);
     });
 }
 
-
-function logout() {
-    sessionStorage.removeItem("token");
-    sessionStorage.removeItem("characterId");
-    window.location.href = "index.html";
-}

@@ -34,9 +34,14 @@ public class LikeController {
         return this.likeS.showLikesByCharacter(characterId);
     }
 
-    @DeleteMapping("/{likeId}")
-    public ResponseEntity<?> deleteLike(@PathVariable int likeId) {
-        return this.likeS.delete(likeId);
+    @DeleteMapping("/{characterId}/{postId}")
+    public ResponseEntity<?> deleteLike(@PathVariable int characterId, @PathVariable int postId) {
+        return this.likeS.delete(characterId, postId);
+    }
+
+    @GetMapping("/check/{postId}/{characterId}")
+    public ResponseEntity<Boolean> checkLike(@PathVariable int postId, @PathVariable int characterId) {
+        return likeS.existsByPostIdAndCharacterId(characterId, postId);
     }
 
 }

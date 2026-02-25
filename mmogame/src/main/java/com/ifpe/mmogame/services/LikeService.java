@@ -1,6 +1,8 @@
 package com.ifpe.mmogame.services;
 
+import java.nio.file.OpenOption;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -90,14 +92,28 @@ public class LikeService {
         }
     }
 
-    public ResponseEntity<?> delete(int likeId) {
-        try {
-            if (!likeRepo.existsById(likeId)) {
-                return ResponseEntity.notFound().build();
-            }
+    public ResponseEntity<?> delete(int characterId, int postId) {
+        Optional<Like> likeOpt = this.likeRepo.findByCharacterIdAndPostId(characterId, postId);
 
-            likeRepo.deleteById(likeId);
+        if (!likeOpt.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Like like = likeOpt.get(); 
+
+        try {
+            likeRepo.delete(like);
             return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            e.printStackTrace(); 
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
+    public ResponseEntity<Boolean> existsByPostIdAndCharacterId(int characterId, int postId) {
+        try {
+            boolean liked = this.likeRepo.existsByPostIdAndCharacterId(postId, characterId);
+            return ResponseEntity.ok(liked);
         } catch (Exception e) {
             return ResponseEntity.internalServerError().build();
         }

@@ -48,7 +48,7 @@ async function loadCharacters() {
                 };
 
                 card.innerHTML = `
-                    <img src="assets/img/default-avatar.png" class="character-photo" id="photo-${c.id}">
+                    <img src="assets/img/default-avatar.jpg" class="character-photo" id="photo-${c.id}">
                     <h3>${c.name}</h3>
                     <span>@${c.uniqueName}</span>
                     <p>${c.gameName}</p>
@@ -60,23 +60,6 @@ async function loadCharacters() {
         }
     } catch (err) {
         grid.innerHTML = "<p>Erro ao carregar personagens.</p>";
-    }
-}
-
-async function loadCharacterPhoto(id) {
-    try {
-        const res = await getCharacterProfile(id);
-
-        if (res.ok) {
-            const photo = await res.json();
-            const imgElement = document.getElementById(`photo-${id}`);
-
-            if (imgElement && photo.content) {
-                imgElement.src = `data:image/${photo.extension};base64,${photo.content}`;
-            }
-        }
-    } catch (e) {
-        console.error("Erro ao carregar foto:", e);
     }
 }
 
@@ -162,9 +145,4 @@ async function uploadPhoto(file, characterId) {
     } catch (e) {
         console.error("Erro no upload", e);
     }
-}
-
-function logout() {
-    sessionStorage.removeItem("token");
-    window.location.href = "login.html";
 }

@@ -45,7 +45,7 @@ async function initFollowPage() {
 
                 const photo = character.photoContent
                     ? `data:image/${character.photoExtension};base64,${character.photoContent}`
-                    : "assets/img/default-avatar.png";
+                    : "assets/img/default-avatar.jpg";
 
                 return `
                     <div class="follow-card" onclick="goToProfile(${character.id})">

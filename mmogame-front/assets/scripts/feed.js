@@ -50,12 +50,15 @@ async function loadTimeline() {
             }
 
             const postsHTML = posts.map(post => {
+
                 const authorName = post.name;
                 const authorUnique = `@${post.uniqueName}`;
 
                 const authorPhoto = post.photoContent
                     ? `data:image/${post.photoExtension};base64,${post.photoContent}`
-                    : "assets/img/default-avatar.png";
+                    : "assets/img/default-avatar.jpg";
+
+                loadLikes(post.id)
 
                 return createPostHTML(post, authorName, authorUnique, authorPhoto);
             }).join("");
@@ -96,7 +99,7 @@ function setupSearch() {
         }
 
         try {
-            const res = await searchCharactersByGame(activeCharId); // Chamada via api.js
+            const res = await searchCharactersByGame(activeCharId);
 
             if (res.ok) {
                 const list = await res.json();
@@ -120,26 +123,7 @@ function setupSearch() {
     };
 }
 
-function logout() {
-    sessionStorage.clear();
-    window.location.href = "login.html";
-}
 
 function goToMyProfile() {
     window.location.href = `profile.html?id=${activeCharId}`;
-}
-
-async function likePost(postId) {
-    try {
-        const res = await likeTimelinePost(postId, parseInt(activeCharId));
-
-        if (res.ok) {
-            alert("Post curtido com sucesso! ❤️");
-
-        } else {
-            alert("Erro ao tentar curtir o post.");
-        }
-    } catch (err) {
-        console.error("Erro ao curtir post:", err);
-    }
 }

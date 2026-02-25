@@ -34,7 +34,7 @@ async function loadComments(postId) {
 
             const authorPhoto = c.photoContent
                 ? `data:image/${c.photoExtension};base64,${c.photoContent}`
-                : "assets/img/default-avatar.png";
+                : "assets/img/default-avatar.jpg";
 
             return `
                 <div class="comment-item">
@@ -87,5 +87,4 @@ async function sendComment(postId) {
 }
 
 window.sendComment = sendComment;
-
 

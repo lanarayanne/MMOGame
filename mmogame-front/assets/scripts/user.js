@@ -1,15 +1,3 @@
-async function loadUserData() {
-    const response = await fetch(ENDPOINTS.USER_INFO, {
-        method: "GET",
-        headers: getAuthHeader()
-    });
-
-    if (response.ok) {
-        const user = await response.json();
-        document.getElementById("userName").innerText = user.name;
-    }
-}
-
 async function updatePassword(oldPassword, newPassword) {
     const response = await fetch(ENDPOINTS.CHANGE_PASSWORD, {
         method: "PATCH",

@@ -4,7 +4,7 @@ public class FollowDTO {
     private int id;
     private int followerId;
     private int followingId;
-
+    
     public int getId() {
         return id;
     }
